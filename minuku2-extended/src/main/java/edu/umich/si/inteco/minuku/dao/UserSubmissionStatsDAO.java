@@ -84,7 +84,7 @@ public class UserSubmissionStatsDAO implements DAO<UserSubmissionStats> {
     public void update(UserSubmissionStats oldEntity, UserSubmissionStats newEntity)
             throws DAOException {
         Log.d(TAG, "Adding note data record.");
-        Firebase userStatsRef = new Firebase(Constants.FIREBASE_URL_USER_SUBMISSION_STATS)
+        Firebase userStatsRef = new Firebase(Constants.getInstance().getFirebaseUrlForUserSubmissionStats())
                 .child(myUserEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(new Date()).toString());
         userStatsRef.setValue(newEntity);
@@ -93,7 +93,7 @@ public class UserSubmissionStatsDAO implements DAO<UserSubmissionStats> {
     public Future<UserSubmissionStats> get() {
         final SettableFuture<UserSubmissionStats> future = SettableFuture.create();
         if (myUserEmail != null) {
-            Firebase userStatsRef = new Firebase(Constants.FIREBASE_URL_USER_SUBMISSION_STATS)
+            Firebase userStatsRef = new Firebase(Constants.getInstance().getFirebaseUrlForUserSubmissionStats())
                     .child(myUserEmail)
                     .child(new SimpleDateFormat("MMddyyyy").format(new Date()).toString());
 

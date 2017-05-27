@@ -22,4 +22,5 @@
 
 <resources>
     <string name="app_name">DReflect</string>
+    <string name="firebase_root">https://dstudio.firebaseio.com</string>
 </resources>

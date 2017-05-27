@@ -67,7 +67,7 @@ public class SemanticLocationDataRecordDAO implements DAO<SemanticLocationDataRe
     @Override
     public void add(SemanticLocationDataRecord entity) throws DAOException {
         Log.d(TAG, "Adding location data record.");
-        Firebase locationListRef = new Firebase(Constants.FIREBASE_URL_SEMANTIC_LOCATION)
+        Firebase locationListRef = new Firebase(Constants.getInstance().getFirebaseUrlForSemanticLocation())
                 .child(myUserEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(new Date()).toString());
         locationListRef.push().setValue((SemanticLocationDataRecord) entity);
@@ -82,7 +82,7 @@ public class SemanticLocationDataRecordDAO implements DAO<SemanticLocationDataRe
     public Future<List<SemanticLocationDataRecord>> getAll() throws DAOException {
         final SettableFuture<List<SemanticLocationDataRecord>> settableFuture =
                 SettableFuture.create();
-        Firebase locationListRef = new Firebase(Constants.FIREBASE_URL_SEMANTIC_LOCATION)
+        Firebase locationListRef = new Firebase(Constants.getInstance().getFirebaseUrlForSemanticLocation())
                 .child(myUserEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(new Date()).toString());
 
@@ -131,7 +131,7 @@ public class SemanticLocationDataRecordDAO implements DAO<SemanticLocationDataRe
                                       final Date someDate,
                                       final List<SemanticLocationDataRecord> synchronizedListOfRecords,
                                       final SettableFuture settableFuture) {
-        Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL_QUESTIONS)
+        Firebase firebaseRef = new Firebase(Constants.getInstance().getFirebaseUrlForSemanticLocation())
                 .child(userEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(someDate).toString());
 

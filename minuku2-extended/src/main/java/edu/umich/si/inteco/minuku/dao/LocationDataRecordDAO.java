@@ -69,7 +69,7 @@ public class LocationDataRecordDAO implements DAO<LocationDataRecord> {
     @Override
     public void add(LocationDataRecord entity) throws DAOException {
         Log.d(TAG, "Adding location data record.");
-        Firebase locationListRef = new Firebase(Constants.FIREBASE_URL_LOCATION)
+        Firebase locationListRef = new Firebase(Constants.getInstance().getFirebaseUrlForLocation())
                 .child(myUserEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(new Date()).toString());
         locationListRef.push().setValue((LocationDataRecord) entity);
@@ -84,7 +84,7 @@ public class LocationDataRecordDAO implements DAO<LocationDataRecord> {
     public Future<List<LocationDataRecord>> getAll() throws DAOException {
         final SettableFuture<List<LocationDataRecord>> settableFuture =
                 SettableFuture.create();
-        Firebase locationListRef = new Firebase(Constants.FIREBASE_URL_LOCATION)
+        Firebase locationListRef = new Firebase(Constants.getInstance().getFirebaseUrlForLocation())
                 .child(myUserEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(new Date()).toString());
 
@@ -133,7 +133,7 @@ public class LocationDataRecordDAO implements DAO<LocationDataRecord> {
                                       final Date someDate,
                                       final List<LocationDataRecord> synchronizedListOfRecords,
                                       final SettableFuture settableFuture) {
-        Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL_LOCATION)
+        Firebase firebaseRef = new Firebase(Constants.getInstance().getFirebaseUrlForLocation())
                 .child(userEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(someDate).toString());
 

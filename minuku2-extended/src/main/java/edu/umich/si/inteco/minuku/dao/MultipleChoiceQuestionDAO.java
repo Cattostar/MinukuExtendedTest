@@ -33,6 +33,6 @@ public class MultipleChoiceQuestionDAO extends AbstractQuestionDAO<MultipleChoic
     protected String TAG = "MultipleChoiceQuestionDAO";
 
     public MultipleChoiceQuestionDAO() {
-        super(MultipleChoice.class, Constants.FIREBASE_URL_MCQ);
+        super(MultipleChoice.class, Constants.getInstance().getFirebaseUrlForMCQ());
     }
 }

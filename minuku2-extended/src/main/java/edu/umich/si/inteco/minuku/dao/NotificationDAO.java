@@ -59,7 +59,7 @@ public class NotificationDAO implements DAO<ShowNotificationEvent> {
     @Override
     public void add(ShowNotificationEvent entity) throws DAOException {
         Log.d(TAG, "Adding notification data record.");
-        Firebase notificationListRef = new Firebase(Constants.FIREBASE_URL_NOTIFICATIONS)
+        Firebase notificationListRef = new Firebase(Constants.getInstance().getFirebaseUrlForNotifications())
                 .child(myUserEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(new Date()).toString());
         notificationListRef.push().setValue(entity);

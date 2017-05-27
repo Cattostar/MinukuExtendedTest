@@ -34,6 +34,6 @@ public class FreeResponseQuestionDAO extends AbstractQuestionDAO<FreeResponse> {
     protected String TAG = "FreeResponseQuestionDAO";
 
     public FreeResponseQuestionDAO() {
-        super(FreeResponse.class, Constants.FIREBASE_URL_FREE_RESPONSE);
+        super(FreeResponse.class, Constants.getInstance().getFirebaseUrlForFreeResponse());
     }
 }

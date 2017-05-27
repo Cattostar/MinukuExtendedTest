@@ -68,7 +68,7 @@ public class ImageDataRecordDAO implements DAO<ImageDataRecord> {
     @Override
     public void add(ImageDataRecord entity) throws DAOException {
         Log.d(TAG, "Adding image data record");
-        Firebase imageListRef = new Firebase(Constants.FIREBASE_URL_IMAGES)
+        Firebase imageListRef = new Firebase(Constants.getInstance().getFirebaseUrlForImages())
                 .child(myUserEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(new Date()).toString());
         imageListRef.push().setValue((ImageDataRecord) entity);
@@ -83,7 +83,7 @@ public class ImageDataRecordDAO implements DAO<ImageDataRecord> {
     public Future<List<ImageDataRecord>> getAll() throws DAOException {
         final SettableFuture<List<ImageDataRecord>> settableFuture =
                 SettableFuture.create();
-        Firebase imageListRef = new Firebase(Constants.FIREBASE_URL_IMAGES)
+        Firebase imageListRef = new Firebase(Constants.getInstance().getFirebaseUrlForImages())
                 .child(myUserEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(new Date()).toString());
 
@@ -129,7 +129,7 @@ public class ImageDataRecordDAO implements DAO<ImageDataRecord> {
                                       final Date someDate,
                                       final List<ImageDataRecord> synchronizedListOfRecords,
                                       final SettableFuture settableFuture) {
-        Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL_IMAGES)
+        Firebase firebaseRef = new Firebase(Constants.getInstance().getFirebaseUrlForImages())
                 .child(userEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(someDate).toString());
 

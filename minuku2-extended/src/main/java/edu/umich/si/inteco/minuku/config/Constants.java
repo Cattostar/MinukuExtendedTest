@@ -23,6 +23,7 @@
 package edu.umich.si.inteco.minuku.config;
 
 import edu.umich.si.inteco.minuku.BuildConfig;
+import edu.umich.si.inteco.minuku.logger.Log;
 
 /**
  * Created by shriti on 7/17/16.
@@ -31,48 +32,107 @@ public class Constants {
     public static final String YES = "YES";
     public static final String NO = "NO";
 
-    // Firebase config
-    public static String FIREBASE_URL = BuildConfig.UNIQUE_FIREBASE_ROOT_URL;
-    public static String FIREBASE_URL_USERS = FIREBASE_URL + "/users";
-    public static String FIREBASE_URL_MOODS = FIREBASE_URL + "/moods";
-    public static String FIREBASE_URL_NOTES = FIREBASE_URL + "/notes";
-    public static String FIREBASE_URL_NOTIFICATIONS = FIREBASE_URL + "/notifications";
-    public static String FIREBASE_URL_IMAGES = FIREBASE_URL + "/photos";
-    public static String FIREBASE_URL_LOCATION = FIREBASE_URL + "/location";
-    public static String FIREBASE_URL_SEMANTIC_LOCATION = FIREBASE_URL + "/semantic_location";
-    public static String FIREBASE_URL_QUESTIONS = FIREBASE_URL + "/questions";
-    public static String FIREBASE_URL_MCQ = FIREBASE_URL_QUESTIONS + "/mcq";
-    public static String FIREBASE_URL_FREE_RESPONSE = FIREBASE_URL_QUESTIONS + "/freeresponse";
-    public static String FIREBASE_URL_USER_SUBMISSION_STATS = FIREBASE_URL + "/submissionstats";
-    public static String FIREBASE_URL_DIABETESLOG = FIREBASE_URL + "/diabetes_log";
-    public static String FIREBASE_URL_EOD_QUESTION_ANSWER = FIREBASE_URL + "/EOD_question_answer";
-    public static String FIREBASE_URL_TAG = FIREBASE_URL + "/tags";
-    public static String FIREBASE_URL_TAG_RECENT = FIREBASE_URL + "/recent_tags";
-    public static String FIREBASE_URL_TIMELINE_PATCH = FIREBASE_URL + "/eod_timeline_notes";
-    public static String FIREBASE_URL_MISSED_REPORT_PROMPT_QNA = FIREBASE_URL + "/missed_report_prompt_QnA";
-    public static String FIREBASE_URL_DIARYSCREENSHOT = FIREBASE_URL + "/diary_screenshot";
+    private boolean firebaseUrlOverridenOnce = true;
+    private static Constants instance;
 
-    public static void replaceFirebaseRoot(String newFirebaseRoot) {
-        FIREBASE_URL = newFirebaseRoot;
-        FIREBASE_URL_USERS = FIREBASE_URL + "/users";
-        FIREBASE_URL_MOODS = FIREBASE_URL + "/moods";
-        FIREBASE_URL_NOTES = FIREBASE_URL + "/notes";
-        FIREBASE_URL_NOTIFICATIONS = FIREBASE_URL + "/notifications";
-        FIREBASE_URL_IMAGES = FIREBASE_URL + "/photos";
-        FIREBASE_URL_LOCATION = FIREBASE_URL + "/location";
-        FIREBASE_URL_SEMANTIC_LOCATION = FIREBASE_URL + "/semantic_location";
-        FIREBASE_URL_QUESTIONS = FIREBASE_URL + "/questions";
-        FIREBASE_URL_MCQ = FIREBASE_URL_QUESTIONS + "/mcq";
-        FIREBASE_URL_FREE_RESPONSE = FIREBASE_URL_QUESTIONS + "/freeresponse";
-        FIREBASE_URL_USER_SUBMISSION_STATS = FIREBASE_URL + "/submissionstats";
-        FIREBASE_URL_DIABETESLOG = FIREBASE_URL + "/diabetes_log";
-        FIREBASE_URL_EOD_QUESTION_ANSWER = FIREBASE_URL + "/EOD_question_answer";
-        FIREBASE_URL_TAG = FIREBASE_URL + "/tags";
-        FIREBASE_URL_TAG_RECENT = FIREBASE_URL + "/recent_tags";
-        FIREBASE_URL_TIMELINE_PATCH = FIREBASE_URL + "/eod_timeline_notes";
-        FIREBASE_URL_MISSED_REPORT_PROMPT_QNA = FIREBASE_URL + "/missed_report_prompt_QnA";
-        FIREBASE_URL_DIARYSCREENSHOT = FIREBASE_URL + "/diary_screenshot";
+    public void setFirebaseUrl(String firebaseUrl) throws IllegalStateException {
+        if (firebaseUrlOverridenOnce) {
+            throw new IllegalStateException("Cannot set firebase url more than once");
+        }
+        FIREBASE_URL = firebaseUrl;
+        firebaseUrlOverridenOnce = true;
     }
+
+    private Constants() {
+
+    }
+
+    public static Constants getInstance() {
+        if (instance == null) {
+            instance = new Constants();
+        }
+        return instance;
+    }
+
+    public String getFirebaseUrl() {
+        return FIREBASE_URL;
+    }
+
+    public String getFirebaseUrlForUsers() {
+        return FIREBASE_URL + "/users";
+    }
+
+    public String getFirebaseUrlForMoods() {
+        return FIREBASE_URL + "/moods";
+    }
+
+    public String getFirebaseUrlForNotes() {
+        return FIREBASE_URL + "/notes";
+    }
+
+    public String getFirebaseUrlForNotifications() {
+        return FIREBASE_URL + "/notifications";
+    }
+
+    public String getFirebaseUrlForImages() {
+        return FIREBASE_URL + "/images";
+    }
+
+    public String getFirebaseUrlForLocation() {
+        return FIREBASE_URL + "/location";
+    }
+
+    public String getFirebaseUrlForSemanticLocation() {
+        return FIREBASE_URL + "/semantic_location";
+    }
+
+    public String getFirebaseUrlForQuestions() {
+        return FIREBASE_URL + "/questions";
+    }
+
+    public String getFirebaseUrlForMCQ() {
+        return getFirebaseUrlForQuestions() + "/mcq";
+    }
+
+    public String getFirebaseUrlForFreeResponse() {
+        return getFirebaseUrlForQuestions() + "/freeresponse";
+    }
+
+    public String getFirebaseUrlForUserSubmissionStats() {
+        return FIREBASE_URL + "/submissionstats";
+    }
+
+    public String getFirebaseUrlForDiabetesLog() {
+        return FIREBASE_URL + "/diabetes_log";
+    }
+
+    public String getFirebaseUrlForEODQuestionAnswer() {
+        return FIREBASE_URL + "/EOD_question_answer";
+    }
+
+    public String getFirebaseUrlForTag() {
+        return FIREBASE_URL + "/tags";
+    }
+
+    public String getFirebaseUrlForRecentTags() {
+        return FIREBASE_URL + "/recent_tags";
+    }
+
+    public String getFirebaseUrlForTimeinePatch() {
+        return FIREBASE_URL + "/eod_timeline_notes";
+    }
+
+    public String getFirebaseUrlForMissedReportPrompt() {
+        return FIREBASE_URL + "/missed_report_prompt_QnA";
+    }
+
+    public String getFirebaseUrlForDiaryScreenshot() {
+        return FIREBASE_URL + "/diary_screenshot";
+    }
+
+    // Firebase config
+    private String FIREBASE_URL = BuildConfig.UNIQUE_FIREBASE_ROOT_URL;
+
 
     // Provider stuff
     public static final String GOOGLE_AUTH_PROVIDER = "google";

@@ -69,7 +69,7 @@ public class NoteDataRecordDAO implements DAO<NoteDataRecord> {
     @Override
     public void add(NoteDataRecord entity) throws DAOException {
         Log.d(TAG, "Adding note data record.");
-        Firebase locationListRef = new Firebase(Constants.FIREBASE_URL_NOTES)
+        Firebase locationListRef = new Firebase(Constants.getInstance().getFirebaseUrlForNotes())
                 .child(myUserEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(new Date()).toString());
         locationListRef.push().setValue(entity);
@@ -84,7 +84,7 @@ public class NoteDataRecordDAO implements DAO<NoteDataRecord> {
     public Future<List<NoteDataRecord>> getAll() throws DAOException {
         final SettableFuture<List<NoteDataRecord>> settableFuture =
                 SettableFuture.create();
-        Firebase noteListRef = new Firebase(Constants.FIREBASE_URL_NOTES)
+        Firebase noteListRef = new Firebase(Constants.getInstance().getFirebaseUrlForNotes())
                 .child(myUserEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(new Date()).toString());
 
@@ -130,7 +130,7 @@ public class NoteDataRecordDAO implements DAO<NoteDataRecord> {
                                       final Date someDate,
                                       final List<NoteDataRecord> synchronizedListOfRecords,
                                       final SettableFuture settableFuture) {
-        Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL_NOTES)
+        Firebase firebaseRef = new Firebase(Constants.getInstance().getFirebaseUrlForNotes())
                 .child(userEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(someDate).toString());
 

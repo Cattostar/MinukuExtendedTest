@@ -43,11 +43,11 @@ public class Model {
     String TAG = "Model";
 
     private Model() {
-        mFirebaseRef = new Firebase(Constants.FIREBASE_URL_TAG)
+        mFirebaseRef = new Firebase(Constants.getInstance().getFirebaseUrlForTag())
                             .child(UserPreferences
                                     .getInstance()
                                     .getPreference(Constants.KEY_ENCODED_EMAIL));
-        mFirebaseRefForRecentTags = new Firebase(Constants.FIREBASE_URL_TAG_RECENT)
+        mFirebaseRefForRecentTags = new Firebase(Constants.getInstance().getFirebaseUrlForRecentTags())
                 .child(UserPreferences
                         .getInstance()
                         .getPreference(Constants.KEY_ENCODED_EMAIL));

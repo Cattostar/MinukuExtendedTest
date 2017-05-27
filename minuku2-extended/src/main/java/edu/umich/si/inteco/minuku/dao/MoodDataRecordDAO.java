@@ -67,7 +67,7 @@ public class MoodDataRecordDAO implements DAO<MoodDataRecord> {
     @Override
     public void add(MoodDataRecord entity) throws DAOException {
         Log.d(TAG, "Adding mood data record");
-        Firebase imageListRef = new Firebase(Constants.FIREBASE_URL_MOODS)
+        Firebase imageListRef = new Firebase(Constants.getInstance().getFirebaseUrlForMoods())
                 .child(myUserEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(new Date()).toString());
         imageListRef.push().setValue((MoodDataRecord) entity);
@@ -82,7 +82,7 @@ public class MoodDataRecordDAO implements DAO<MoodDataRecord> {
     public Future<List<MoodDataRecord>> getAll() throws DAOException {
         final SettableFuture<List<MoodDataRecord>> settableFuture =
                 SettableFuture.create();
-        Firebase moodListRef = new Firebase(Constants.FIREBASE_URL_MOODS)
+        Firebase moodListRef = new Firebase(Constants.getInstance().getFirebaseUrlForMoods())
                 .child(myUserEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(new Date()).toString());
         Log.d(TAG, "Attempting to get information from " + moodListRef);
@@ -132,7 +132,7 @@ public class MoodDataRecordDAO implements DAO<MoodDataRecord> {
                                              final Date someDate,
                                              final List<MoodDataRecord> synchronizedListOfRecords,
                                              final SettableFuture settableFuture) {
-        Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL_MOODS)
+        Firebase firebaseRef = new Firebase(Constants.getInstance().getFirebaseUrlForMoods())
                 .child(userEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(someDate).toString());
 

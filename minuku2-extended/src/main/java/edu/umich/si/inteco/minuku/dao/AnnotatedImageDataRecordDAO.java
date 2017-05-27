@@ -63,14 +63,14 @@ public class AnnotatedImageDataRecordDAO<T extends AnnotatedImageDataRecord> imp
     public AnnotatedImageDataRecordDAO(Class aDataRecordType) {
         myUserEmail = UserPreferences.getInstance().getPreference(Constants.KEY_ENCODED_EMAIL);
         this.mDataRecordType = aDataRecordType;
-        this.mFirebaseUrl = Constants.FIREBASE_URL_IMAGES;
+        this.mFirebaseUrl = Constants.getInstance().getFirebaseUrlForImages();
         this.imageType = "DEFAULT";
     }
 
     public AnnotatedImageDataRecordDAO(Class aDataRecordType, String imageTypeforURL) {
         myUserEmail = UserPreferences.getInstance().getPreference(Constants.KEY_ENCODED_EMAIL);
         this.mDataRecordType = aDataRecordType;
-        this.mFirebaseUrl = Constants.FIREBASE_URL_IMAGES;
+        this.mFirebaseUrl = Constants.getInstance().getFirebaseUrlForImages();
         this.imageType = imageTypeforURL;
     }
 
