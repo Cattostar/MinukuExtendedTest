@@ -55,39 +55,42 @@ public class Constants {
     }
 
     public String getFirebaseUrl() {
+        if(FIREBASE_URL == null || "".equals(FIREBASE_URL)) {
+            throw new IllegalStateException("Firebase URL must be set.");
+        }
         return FIREBASE_URL;
     }
 
     public String getFirebaseUrlForUsers() {
-        return FIREBASE_URL + "/users";
+        return getFirebaseUrl() + "/users";
     }
 
     public String getFirebaseUrlForMoods() {
-        return FIREBASE_URL + "/moods";
+        return getFirebaseUrl() + "/moods";
     }
 
     public String getFirebaseUrlForNotes() {
-        return FIREBASE_URL + "/notes";
+        return getFirebaseUrl() + "/notes";
     }
 
     public String getFirebaseUrlForNotifications() {
-        return FIREBASE_URL + "/notifications";
+        return getFirebaseUrl() + "/notifications";
     }
 
     public String getFirebaseUrlForImages() {
-        return FIREBASE_URL + "/images";
+        return getFirebaseUrl() + "/images";
     }
 
     public String getFirebaseUrlForLocation() {
-        return FIREBASE_URL + "/location";
+        return getFirebaseUrl() + "/location";
     }
 
     public String getFirebaseUrlForSemanticLocation() {
-        return FIREBASE_URL + "/semantic_location";
+        return getFirebaseUrl() + "/semantic_location";
     }
 
     public String getFirebaseUrlForQuestions() {
-        return FIREBASE_URL + "/questions";
+        return getFirebaseUrl() + "/questions";
     }
 
     public String getFirebaseUrlForMCQ() {
@@ -99,39 +102,39 @@ public class Constants {
     }
 
     public String getFirebaseUrlForUserSubmissionStats() {
-        return FIREBASE_URL + "/submissionstats";
+        return getFirebaseUrl() + "/submissionstats";
     }
 
     public String getFirebaseUrlForDiabetesLog() {
-        return FIREBASE_URL + "/diabetes_log";
+        return getFirebaseUrl() + "/diabetes_log";
     }
 
     public String getFirebaseUrlForEODQuestionAnswer() {
-        return FIREBASE_URL + "/EOD_question_answer";
+        return getFirebaseUrl() + "/EOD_question_answer";
     }
 
     public String getFirebaseUrlForTag() {
-        return FIREBASE_URL + "/tags";
+        return getFirebaseUrl() + "/tags";
     }
 
     public String getFirebaseUrlForRecentTags() {
-        return FIREBASE_URL + "/recent_tags";
+        return getFirebaseUrl() + "/recent_tags";
     }
 
     public String getFirebaseUrlForTimeinePatch() {
-        return FIREBASE_URL + "/eod_timeline_notes";
+        return getFirebaseUrl() + "/eod_timeline_notes";
     }
 
     public String getFirebaseUrlForMissedReportPrompt() {
-        return FIREBASE_URL + "/missed_report_prompt_QnA";
+        return getFirebaseUrl() + "/missed_report_prompt_QnA";
     }
 
     public String getFirebaseUrlForDiaryScreenshot() {
-        return FIREBASE_URL + "/diary_screenshot";
+        return getFirebaseUrl() + "/diary_screenshot";
     }
 
     // Firebase config
-    private String FIREBASE_URL = BuildConfig.UNIQUE_FIREBASE_ROOT_URL;
+    private String FIREBASE_URL = "";
 
 
     // Provider stuff
