@@ -32,28 +32,47 @@ public class Constants {
     public static final String NO = "NO";
 
     // Firebase config
-    public static final String FIREBASE_URL = BuildConfig.UNIQUE_FIREBASE_ROOT_URL;
-    public static final String FIREBASE_URL_USERS = FIREBASE_URL + "/users";
-    public static final String FIREBASE_URL_MOODS = FIREBASE_URL + "/moods";
-    public static final String FIREBASE_URL_NOTES = FIREBASE_URL + "/notes";
-    public static final String FIREBASE_URL_NOTIFICATIONS = FIREBASE_URL + "/notifications";
-    public static final String FIREBASE_URL_IMAGES = FIREBASE_URL + "/photos";
-    public static final String FIREBASE_URL_LOCATION = FIREBASE_URL + "/location";
-    public static final String FIREBASE_URL_SEMANTIC_LOCATION = FIREBASE_URL + "/semantic_location";
-    public static final String FIREBASE_URL_QUESTIONS = FIREBASE_URL + "/questions";
-    public static final String FIREBASE_URL_MCQ = FIREBASE_URL_QUESTIONS + "/mcq";
-    public static final String FIREBASE_URL_FREE_RESPONSE = FIREBASE_URL_QUESTIONS + "/freeresponse";
-    public static final String FIREBASE_URL_USER_SUBMISSION_STATS = FIREBASE_URL + "/submissionstats";
-    public static final String FIREBASE_URL_DIABETESLOG = FIREBASE_URL + "/diabetes_log";
-    public static final String FIREBASE_URL_EOD_QUESTION_ANSWER = FIREBASE_URL + "/EOD_question_answer";
-    public static final String FIREBASE_URL_TAG = FIREBASE_URL + "/tags";
-    public static final String FIREBASE_URL_TAG_RECENT = FIREBASE_URL + "/recent_tags";
-    public static final String FIREBASE_URL_TIMELINE_PATCH = FIREBASE_URL + "/eod_timeline_notes";
-    public static final String FIREBASE_URL_MISSED_REPORT_PROMPT_QNA = FIREBASE_URL + "/missed_report_prompt_QnA";
-    public static final String FIREBASE_URL_DIARYSCREENSHOT = FIREBASE_URL + "/diary_screenshot";
+    public static String FIREBASE_URL = BuildConfig.UNIQUE_FIREBASE_ROOT_URL;
+    public static String FIREBASE_URL_USERS = FIREBASE_URL + "/users";
+    public static String FIREBASE_URL_MOODS = FIREBASE_URL + "/moods";
+    public static String FIREBASE_URL_NOTES = FIREBASE_URL + "/notes";
+    public static String FIREBASE_URL_NOTIFICATIONS = FIREBASE_URL + "/notifications";
+    public static String FIREBASE_URL_IMAGES = FIREBASE_URL + "/photos";
+    public static String FIREBASE_URL_LOCATION = FIREBASE_URL + "/location";
+    public static String FIREBASE_URL_SEMANTIC_LOCATION = FIREBASE_URL + "/semantic_location";
+    public static String FIREBASE_URL_QUESTIONS = FIREBASE_URL + "/questions";
+    public static String FIREBASE_URL_MCQ = FIREBASE_URL_QUESTIONS + "/mcq";
+    public static String FIREBASE_URL_FREE_RESPONSE = FIREBASE_URL_QUESTIONS + "/freeresponse";
+    public static String FIREBASE_URL_USER_SUBMISSION_STATS = FIREBASE_URL + "/submissionstats";
+    public static String FIREBASE_URL_DIABETESLOG = FIREBASE_URL + "/diabetes_log";
+    public static String FIREBASE_URL_EOD_QUESTION_ANSWER = FIREBASE_URL + "/EOD_question_answer";
+    public static String FIREBASE_URL_TAG = FIREBASE_URL + "/tags";
+    public static String FIREBASE_URL_TAG_RECENT = FIREBASE_URL + "/recent_tags";
+    public static String FIREBASE_URL_TIMELINE_PATCH = FIREBASE_URL + "/eod_timeline_notes";
+    public static String FIREBASE_URL_MISSED_REPORT_PROMPT_QNA = FIREBASE_URL + "/missed_report_prompt_QnA";
+    public static String FIREBASE_URL_DIARYSCREENSHOT = FIREBASE_URL + "/diary_screenshot";
 
-
-
+    public static void replaceFirebaseRoot(String newFirebaseRoot) {
+        FIREBASE_URL = newFirebaseRoot;
+        FIREBASE_URL_USERS = FIREBASE_URL + "/users";
+        FIREBASE_URL_MOODS = FIREBASE_URL + "/moods";
+        FIREBASE_URL_NOTES = FIREBASE_URL + "/notes";
+        FIREBASE_URL_NOTIFICATIONS = FIREBASE_URL + "/notifications";
+        FIREBASE_URL_IMAGES = FIREBASE_URL + "/photos";
+        FIREBASE_URL_LOCATION = FIREBASE_URL + "/location";
+        FIREBASE_URL_SEMANTIC_LOCATION = FIREBASE_URL + "/semantic_location";
+        FIREBASE_URL_QUESTIONS = FIREBASE_URL + "/questions";
+        FIREBASE_URL_MCQ = FIREBASE_URL_QUESTIONS + "/mcq";
+        FIREBASE_URL_FREE_RESPONSE = FIREBASE_URL_QUESTIONS + "/freeresponse";
+        FIREBASE_URL_USER_SUBMISSION_STATS = FIREBASE_URL + "/submissionstats";
+        FIREBASE_URL_DIABETESLOG = FIREBASE_URL + "/diabetes_log";
+        FIREBASE_URL_EOD_QUESTION_ANSWER = FIREBASE_URL + "/EOD_question_answer";
+        FIREBASE_URL_TAG = FIREBASE_URL + "/tags";
+        FIREBASE_URL_TAG_RECENT = FIREBASE_URL + "/recent_tags";
+        FIREBASE_URL_TIMELINE_PATCH = FIREBASE_URL + "/eod_timeline_notes";
+        FIREBASE_URL_MISSED_REPORT_PROMPT_QNA = FIREBASE_URL + "/missed_report_prompt_QnA";
+        FIREBASE_URL_DIARYSCREENSHOT = FIREBASE_URL + "/diary_screenshot";
+    }
 
     // Provider stuff
     public static final String GOOGLE_AUTH_PROVIDER = "google";
