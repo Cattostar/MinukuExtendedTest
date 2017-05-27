@@ -22,8 +22,6 @@
 
 package edu.umich.si.inteco.minuku.config;
 
-import edu.umich.si.inteco.minuku.BuildConfig;
-import edu.umich.si.inteco.minuku.logger.Log;
 
 /**
  * Created by shriti on 7/17/16.
@@ -55,10 +53,11 @@ public class Constants {
     }
 
     public String getFirebaseUrl() {
-        if(FIREBASE_URL == null || "".equals(FIREBASE_URL)) {
+        if (FIREBASE_URL != null && !FIREBASE_URL.isEmpty()) {
+            return FIREBASE_URL;
+        } else {
             throw new IllegalStateException("Firebase URL must be set.");
         }
-        return FIREBASE_URL;
     }
 
     public String getFirebaseUrlForUsers() {
