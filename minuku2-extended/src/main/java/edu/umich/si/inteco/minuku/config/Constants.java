@@ -32,7 +32,7 @@ public class Constants {
     public static final String YES = "YES";
     public static final String NO = "NO";
 
-    private boolean firebaseUrlOverridenOnce = true;
+    private boolean firebaseUrlOverridenOnce = false;
     private static Constants instance;
 
     public void setFirebaseUrl(String firebaseUrl) throws IllegalStateException {
