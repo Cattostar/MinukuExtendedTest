@@ -84,7 +84,8 @@ public class LocationDataRecordDAO implements DAO<LocationDataRecord> {
     public Future<List<LocationDataRecord>> getAll() throws DAOException {
         final SettableFuture<List<LocationDataRecord>> settableFuture =
                 SettableFuture.create();
-        Firebase locationListRef = new Firebase(Constants.getInstance().getFirebaseUrlForLocation())
+        String firebaseUrlForLocation = Constants.getInstance().getFirebaseUrlForLocation();
+        Firebase locationListRef = new Firebase(firebaseUrlForLocation)
                 .child(myUserEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(new Date()).toString());
 
@@ -133,7 +134,8 @@ public class LocationDataRecordDAO implements DAO<LocationDataRecord> {
                                       final Date someDate,
                                       final List<LocationDataRecord> synchronizedListOfRecords,
                                       final SettableFuture settableFuture) {
-        Firebase firebaseRef = new Firebase(Constants.getInstance().getFirebaseUrlForLocation())
+        String firebaseUrlForLocation = Constants.getInstance().getFirebaseUrlForLocation();
+        Firebase firebaseRef = new Firebase(firebaseUrlForLocation)
                 .child(userEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(someDate).toString());
 
