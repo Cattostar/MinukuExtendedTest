@@ -69,7 +69,8 @@ public class LocationDataRecordDAO implements DAO<LocationDataRecord> {
     @Override
     public void add(LocationDataRecord entity) throws DAOException {
         Log.d(TAG, "Adding location data record.");
-        Firebase locationListRef = new Firebase(Constants.getInstance().getFirebaseUrlForLocation())
+        String firebaseUrlForLocation = Constants.getInstance().getFirebaseUrlForLocation();
+        Firebase locationListRef = new Firebase(firebaseUrlForLocation)
                 .child(myUserEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(new Date()).toString());
         locationListRef.push().setValue((LocationDataRecord) entity);
