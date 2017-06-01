@@ -51,6 +51,10 @@ public class Constants {
         }
         return instance;
     }
+    
+    public boolean hasFirebaseUrlBeenSet() {
+        return firebaseUrlOverridenOnce;
+    }
 
     public String getFirebaseUrl() {
         if (FIREBASE_URL != null && !FIREBASE_URL.isEmpty()) {
