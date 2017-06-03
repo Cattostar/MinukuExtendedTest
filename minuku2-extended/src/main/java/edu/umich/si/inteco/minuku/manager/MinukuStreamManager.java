@@ -94,7 +94,9 @@ public class MinukuStreamManager implements StreamManager {
             if(counter % streamGenerator.getUpdateFrequency() == 0) {
                 Log.d(TAG,
                         "Calling update stream generator for " + streamGenerator.getClass());
-                streamGenerator.updateStream();
+                boolean updateStatus = streamGenerator.updateStream();
+                if(updateStatus)
+                    streamGenerator.sendStateChangeEvent();
             }
         }
         counter++;

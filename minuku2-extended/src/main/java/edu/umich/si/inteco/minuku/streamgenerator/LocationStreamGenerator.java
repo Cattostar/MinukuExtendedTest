@@ -50,8 +50,10 @@ import edu.umich.si.inteco.minuku.logger.Log;
 import edu.umich.si.inteco.minuku.manager.MinukuDAOManager;
 import edu.umich.si.inteco.minuku.manager.MinukuStreamManager;
 import edu.umich.si.inteco.minuku.model.LocationDataRecord;
+import edu.umich.si.inteco.minuku.model.MoodDataRecord;
 import edu.umich.si.inteco.minuku.stream.LocationStream;
 import edu.umich.si.inteco.minukucore.dao.DAOException;
+import edu.umich.si.inteco.minukucore.event.StateChangeEvent;
 import edu.umich.si.inteco.minukucore.exception.StreamAlreadyExistsException;
 import edu.umich.si.inteco.minukucore.exception.StreamNotFoundException;
 import edu.umich.si.inteco.minukucore.stream.Stream;
@@ -179,7 +181,7 @@ public class LocationStreamGenerator extends AndroidStreamGenerator<LocationData
 
     @Override
     public void sendStateChangeEvent() {
-
+        EventBus.getDefault().post(new StateChangeEvent(LocationDataRecord.class));
     }
 
     @Override
