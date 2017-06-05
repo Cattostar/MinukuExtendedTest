@@ -167,12 +167,12 @@ public class LocationStreamGenerator extends AndroidStreamGenerator<LocationData
         EventBus.getDefault().post(locationDataRecord);
         try {
             mDAO.add(locationDataRecord);
+            Log.d(TAG, "updateStream returning true");
+            return true;
         } catch (DAOException e) {
             e.printStackTrace();
             return false;
         }
-        Log.d(TAG, "updateStream returning true");
-        return true;
     }
 
     @Override
