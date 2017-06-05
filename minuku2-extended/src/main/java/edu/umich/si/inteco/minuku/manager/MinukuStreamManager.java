@@ -95,8 +95,9 @@ public class MinukuStreamManager implements StreamManager {
                 Log.d(TAG,
                         "Calling update stream generator for " + streamGenerator.getClass());
                 boolean updateStatus = streamGenerator.updateStream();
-                if(updateStatus)
-                    streamGenerator.sendStateChangeEvent();
+                if(updateStatus){
+                    Log.d(TAG, "updateStream returned true. Sending a state change event");
+                    streamGenerator.sendStateChangeEvent();}
             }
         }
         counter++;

@@ -171,6 +171,7 @@ public class LocationStreamGenerator extends AndroidStreamGenerator<LocationData
             e.printStackTrace();
             return false;
         }
+        Log.d(TAG, "updateStream returning true");
         return true;
     }
 
@@ -181,6 +182,7 @@ public class LocationStreamGenerator extends AndroidStreamGenerator<LocationData
 
     @Override
     public void sendStateChangeEvent() {
+        Log.d(TAG, "sending a state change event for location");
         EventBus.getDefault().post(new StateChangeEvent(LocationDataRecord.class));
     }
 
