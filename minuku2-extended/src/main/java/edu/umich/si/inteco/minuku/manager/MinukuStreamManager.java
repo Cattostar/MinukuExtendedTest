@@ -22,6 +22,7 @@
 
 package edu.umich.si.inteco.minuku.manager;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
@@ -70,6 +71,7 @@ public class MinukuStreamManager implements StreamManager {
         mStreamMap = new HashMap<>();
         mStreamTypeStreamMap = new HashMap<>();
         mRegisteredStreamGenerators = new HashMap<>();
+        EventBus.getDefault().register(this);
     }
 
     public static MinukuStreamManager getInstance() {
