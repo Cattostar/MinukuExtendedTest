@@ -52,6 +52,7 @@ import edu.umich.si.inteco.minuku.manager.MinukuStreamManager;
 import edu.umich.si.inteco.minuku.model.LocationDataRecord;
 import edu.umich.si.inteco.minuku.model.MoodDataRecord;
 import edu.umich.si.inteco.minuku.stream.LocationStream;
+import edu.umich.si.inteco.minukucore.dao.DAO;
 import edu.umich.si.inteco.minukucore.dao.DAOException;
 import edu.umich.si.inteco.minukucore.event.StateChangeEvent;
 import edu.umich.si.inteco.minukucore.exception.StreamAlreadyExistsException;
@@ -75,7 +76,7 @@ public class LocationStreamGenerator extends AndroidStreamGenerator<LocationData
     private AtomicDouble latitude;
     private AtomicDouble longitude;
 
-    LocationDataRecordDAO mDAO;
+    DAO<LocationDataRecord> mDAO;
 
     public LocationStreamGenerator(Context applicationContext) {
         super(applicationContext);

@@ -45,6 +45,7 @@ import edu.umich.si.inteco.minuku.model.LocationDataRecord;
 import edu.umich.si.inteco.minuku.model.MoodDataRecord;
 import edu.umich.si.inteco.minuku.model.SemanticLocationDataRecord;
 import edu.umich.si.inteco.minuku.stream.SemanticLocationStream;
+import edu.umich.si.inteco.minukucore.dao.DAO;
 import edu.umich.si.inteco.minukucore.dao.DAOException;
 import edu.umich.si.inteco.minukucore.event.StateChangeEvent;
 import edu.umich.si.inteco.minukucore.exception.StreamAlreadyExistsException;
@@ -59,7 +60,7 @@ public class SemanticLocationStreamGenerator
 
     private SemanticLocationStream mStream;
     private String TAG = "SemanticLocationStreamGenerator";
-    private SemanticLocationDataRecordDAO mDAO;
+    private DAO<SemanticLocationDataRecord> mDAO;
 
 
     public SemanticLocationStreamGenerator(Context applicationContext) {

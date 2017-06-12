@@ -41,6 +41,7 @@ import edu.umich.si.inteco.minuku.manager.MinukuDAOManager;
 import edu.umich.si.inteco.minuku.manager.MinukuStreamManager;
 import edu.umich.si.inteco.minuku.model.NoteDataRecord;
 import edu.umich.si.inteco.minuku.stream.NoteStream;
+import edu.umich.si.inteco.minukucore.dao.DAO;
 import edu.umich.si.inteco.minukucore.dao.DAOException;
 import edu.umich.si.inteco.minukucore.exception.StreamAlreadyExistsException;
 import edu.umich.si.inteco.minukucore.exception.StreamNotFoundException;
@@ -53,7 +54,7 @@ public class NoteStreamGenerator extends AndroidStreamGenerator<NoteDataRecord> 
 
     private Stream mStream;
     private String TAG = "NoteStreamGenerator";
-    private NoteDataRecordDAO mDAO;
+    private DAO<NoteDataRecord> mDAO;
 
     public NoteStreamGenerator(Context aApplicationContext) {
         super(aApplicationContext);

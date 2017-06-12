@@ -42,6 +42,7 @@ import edu.umich.si.inteco.minuku.manager.MinukuDAOManager;
 import edu.umich.si.inteco.minuku.manager.MinukuStreamManager;
 import edu.umich.si.inteco.minuku.model.MoodDataRecord;
 import edu.umich.si.inteco.minuku.stream.ImageStream;
+import edu.umich.si.inteco.minukucore.dao.DAO;
 import edu.umich.si.inteco.minukucore.dao.DAOException;
 import edu.umich.si.inteco.minukucore.event.IsDataExpectedEvent;
 import edu.umich.si.inteco.minukucore.event.StateChangeEvent;
@@ -56,7 +57,7 @@ public class MoodStreamGenerator extends AndroidStreamGenerator<MoodDataRecord> 
 
     private Stream mStream;
     private String TAG = "MoodStreamGenerator";
-    private MoodDataRecordDAO mDAO;
+    private DAO<MoodDataRecord> mDAO;
 
     public MoodStreamGenerator(Context applicationContext) {
         super(applicationContext);

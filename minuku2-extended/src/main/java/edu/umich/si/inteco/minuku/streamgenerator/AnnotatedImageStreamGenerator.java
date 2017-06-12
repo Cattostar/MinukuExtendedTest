@@ -27,6 +27,7 @@ import android.os.AsyncTask;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -41,6 +42,7 @@ import edu.umich.si.inteco.minuku.manager.MinukuDAOManager;
 import edu.umich.si.inteco.minuku.manager.MinukuStreamManager;
 import edu.umich.si.inteco.minuku.model.AnnotatedImageDataRecord;
 import edu.umich.si.inteco.minuku.stream.AnnotatedImageStream;
+import edu.umich.si.inteco.minukucore.dao.DAO;
 import edu.umich.si.inteco.minukucore.dao.DAOException;
 import edu.umich.si.inteco.minukucore.event.NoDataChangeEvent;
 import edu.umich.si.inteco.minukucore.exception.StreamAlreadyExistsException;
@@ -60,7 +62,7 @@ public class AnnotatedImageStreamGenerator<T extends AnnotatedImageDataRecord>
     protected String TAG = "AnnotatedImageStreamGenerator";
     private Class<T> mDataRecordType;
 
-    private AnnotatedImageDataRecordDAO mDAO;
+    private DAO<AnnotatedImageDataRecord> mDAO;
 
     public AnnotatedImageStreamGenerator() {
 
@@ -129,13 +131,13 @@ public class AnnotatedImageStreamGenerator<T extends AnnotatedImageDataRecord>
             try
             {
                 Log.d(TAG, "Stream " + TAG + "initialized from previous state");
-                Future<List<T>> listFuture =
+                Future<List<AnnotatedImageDataRecord>> listFuture =
                         mDAO.getLast(Constants.DEFAULT_QUEUE_SIZE);
                 while(!listFuture.isDone()) {
                     Thread.sleep(1000);
                 }
                 Log.d(TAG, "Received data from Future for " + TAG);
-                mStream.addAll(new LinkedList<>(listFuture.get()));
+                mStream.addAll((Collection<? extends T>) new LinkedList<>(listFuture.get()));
             } catch (DAOException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
