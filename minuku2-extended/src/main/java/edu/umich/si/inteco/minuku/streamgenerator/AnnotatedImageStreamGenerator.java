@@ -62,7 +62,7 @@ public class AnnotatedImageStreamGenerator<T extends AnnotatedImageDataRecord>
     protected String TAG = "AnnotatedImageStreamGenerator";
     private Class<T> mDataRecordType;
 
-    private DAO<AnnotatedImageDataRecord> mDAO;
+    private DAO<T> mDAO;
 
     public AnnotatedImageStreamGenerator() {
 
@@ -131,13 +131,13 @@ public class AnnotatedImageStreamGenerator<T extends AnnotatedImageDataRecord>
             try
             {
                 Log.d(TAG, "Stream " + TAG + "initialized from previous state");
-                Future<List<AnnotatedImageDataRecord>> listFuture =
+                Future<List<T>> listFuture =
                         mDAO.getLast(Constants.DEFAULT_QUEUE_SIZE);
                 while(!listFuture.isDone()) {
                     Thread.sleep(1000);
                 }
                 Log.d(TAG, "Received data from Future for " + TAG);
-                mStream.addAll((Collection<? extends T>) new LinkedList<>(listFuture.get()));
+                mStream.addAll(new LinkedList<>(listFuture.get()));
             } catch (DAOException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
