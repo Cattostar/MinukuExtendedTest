@@ -43,6 +43,7 @@ import edu.umich.si.inteco.minuku.R;
 import edu.umich.si.inteco.minuku.config.Constants;
 import edu.umich.si.inteco.minuku.dao.NotificationDAO;
 import edu.umich.si.inteco.minuku.logger.Log;
+import edu.umich.si.inteco.minukucore.dao.DAO;
 import edu.umich.si.inteco.minukucore.dao.DAOException;
 import edu.umich.si.inteco.minukucore.event.NotificationClickedEvent;
 import edu.umich.si.inteco.minukucore.event.ShowNotificationEvent;
@@ -57,7 +58,7 @@ public class MinukuNotificationManager extends Service implements NotificationMa
     private Map<Integer, ShowNotificationEvent> registeredNotifications;
     private android.app.NotificationManager mNotificationManager;
     //private Map<String, ShowNotificationEvent> categorizedNotificationMap;
-    private NotificationDAO mDAO;
+    private DAO<ShowNotificationEvent> mDAO;
 
     public MinukuNotificationManager() {
         Log.d(TAG, "Started minuku notification manager");
