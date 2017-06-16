@@ -31,6 +31,7 @@ public class Constants {
     public static final String NO = "NO";
 
     private boolean firebaseUrlOverridenOnce = false;
+    private boolean appNameOverridenOnce = false;
     private static Constants instance;
 
     public void setFirebaseUrl(String firebaseUrl) throws IllegalStateException {
@@ -39,6 +40,14 @@ public class Constants {
         }
         FIREBASE_URL = firebaseUrl;
         firebaseUrlOverridenOnce = true;
+    }
+
+    public void setAppName(String appName) throws IllegalStateException {
+        if(appNameOverridenOnce){
+            throw new IllegalStateException("Cannot set app name more than once");
+        }
+        APP_NAME = appName;
+        appNameOverridenOnce = true;
     }
 
     private Constants() {
@@ -54,6 +63,21 @@ public class Constants {
     
     public boolean hasFirebaseUrlBeenSet() {
         return firebaseUrlOverridenOnce;
+    }
+    public boolean hasAppNameBeenSet() {
+        return appNameOverridenOnce;
+    }
+
+    public String getAppName(){
+        if(APP_NAME!=null && !APP_NAME.isEmpty()){
+            return APP_NAME;
+        } else {
+            throw new IllegalStateException("App Name must be set");
+        }
+    }
+
+    public String getRunningAppDeclaration() {
+        return getAppName() + " is running in the background";
     }
 
     public String getFirebaseUrl() {
@@ -139,6 +163,9 @@ public class Constants {
     // Firebase config
     private String FIREBASE_URL = "";
 
+    //app name
+    private String APP_NAME = "";
+
 
     // Provider stuff
     public static final String GOOGLE_AUTH_PROVIDER = "google";
@@ -206,8 +233,8 @@ public class Constants {
     public static final String SELECTED_LOCATIONS = "USERPREF_SELECTED_LOCATIONS";
     public static final String BUNDLE_KEY_FOR_QUESTIONNAIRE_ID = "QUESTIONNAIRE_ID";
     public static final String BUNDLE_KEY_FOR_NOTIFICATION_SOURCE = "NOTIFICATION_SOURCE";
-    public static final String APP_NAME = "DReflect";
-    public static final String RUNNING_APP_DECLARATION = APP_NAME + " is running in the background";
+    //public static final String APP_NAME = "DReflect";
+    //public static final String RUNNING_APP_DECLARATION = APP_NAME + " is running in the background";
     public static final long INTERNAL_LOCATION_UPDATE_FREQUENCY = 1 * 300 * 1000;
     public static final float LOCATION_MINUMUM_DISPLACEMENT_UPDATE_THRESHOLD = 50 ;
 

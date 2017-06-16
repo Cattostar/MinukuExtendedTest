@@ -85,8 +85,8 @@ public class MinukuNotificationManager extends Service implements NotificationMa
         );
 
         Notification note  = new Notification.Builder(getBaseContext())
-                .setContentTitle(Constants.APP_NAME)
-                .setContentText(Constants.RUNNING_APP_DECLARATION)
+                .setContentTitle(Constants.getInstance().getAppName())
+                .setContentText(Constants.getInstance().getRunningAppDeclaration())
                 .setSmallIcon(R.drawable.self_reflection)
                 .setAutoCancel(false)
                 .build();
