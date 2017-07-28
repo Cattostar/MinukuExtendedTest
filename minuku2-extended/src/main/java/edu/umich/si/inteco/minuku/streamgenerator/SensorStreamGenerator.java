@@ -213,6 +213,11 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
     /**
      * Location Listerner events start here.
      */
+     
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+		
+	}
 
     @Override
     public void onSensorChanged(SensorEvent event) {
