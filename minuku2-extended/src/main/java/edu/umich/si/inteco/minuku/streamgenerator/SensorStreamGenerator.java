@@ -85,9 +85,9 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
     //private GoogleApiClient mGoogleApiClient;
     //private LocationRequest mLocationRequest;
 
-    private AtomicFloat accelerometerX;//????
-    private AtomicFloat accelerometerY;
-    private AtomicFloat accelerometerZ;
+    private AtomicDouble accelerometerX;//????
+    private AtomicDouble accelerometerY;
+    private AtomicDouble accelerometerZ;
 
     private DAO<SensorDataRecord> mDAO;
 
@@ -95,9 +95,9 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
         super(applicationContext);
         this.mStream = new SensorStream(Constants.DEFAULT_QUEUE_SIZE);
         this.mDAO = MinukuDAOManager.getInstance().getDaoFor(SensorDataRecord.class);
-        this.accelerometerX = new AtomicFloat();
-        this.accelerometerY = new AtomicFloat();
-        this.accelerometerZ = new AtomicFloat();
+        this.accelerometerX = new AtomicDouble();
+        this.accelerometerY = new AtomicDouble();
+        this.accelerometerZ = new AtomicDouble();
         this.register();
     }
 
@@ -203,12 +203,12 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
     public void sendStateChangeEvent() {
         Log.d(TAG, "sending a state change event for sensor");
         EventBus.getDefault().post(new StateChangeEvent(LocationDataRecord.class));
-    }
+    }*/
 
     @Override
-    public void offer(LocationDataRecord dataRecord) {
+    public void offer(SensorDataRecord dataRecord) {
         Log.e(TAG, "Offer for location data record does nothing!");
-    }*/
+    }
 
     /**
      * Location Listerner events start here.
