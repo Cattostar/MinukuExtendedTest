@@ -73,7 +73,7 @@ public class SensorDataRecordDAO implements DAO<SensorDataRecord> {
         Firebase sensorListRef = new Firebase(firebaseUrlForSensor)
                 .child(myUserEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(new Date()).toString());
-        locationListRef.push().setValue((SensorDataRecord) entity);
+        sensorListRef.push().setValue((SensorDataRecord) entity);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class SensorDataRecordDAO implements DAO<SensorDataRecord> {
                 .child(myUserEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(new Date()).toString());
 
-        locationListRef.addValueEventListener(new ValueEventListener() {
+        sensorListRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, SensorDataRecord> sensorListMap =
@@ -135,7 +135,7 @@ public class SensorDataRecordDAO implements DAO<SensorDataRecord> {
                                       final Date someDate,
                                       final List<SensorDataRecord> synchronizedListOfRecords,
                                       final SettableFuture settableFuture) {
-        String firebaseUrlForLocation = Constants.getInstance().getFirebaseUrlForSensor();
+        String firebaseUrlForSensor = Constants.getInstance().getFirebaseUrlForSensor();
         Firebase firebaseRef = new Firebase(firebaseUrlForSensor)
                 .child(userEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(someDate).toString());
