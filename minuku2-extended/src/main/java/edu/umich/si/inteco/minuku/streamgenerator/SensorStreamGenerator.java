@@ -176,9 +176,9 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
     public boolean updateStream() {
         Log.d(TAG, "Update stream called.");
         SensorDataRecord sensorDataRecord = new SensorDataRecord(
-                (float)accelerometerX.get());
+                (float)accelerometerX.get(),
                 (float)accelerometerY.get(),
-                (float)accelerometerZ.get();
+                (float)accelerometerZ.get());
         mStream.add(sensorDataRecord);
         Log.d(TAG, "Sensor to be sent to event bus" + sensorDataRecord);
 
