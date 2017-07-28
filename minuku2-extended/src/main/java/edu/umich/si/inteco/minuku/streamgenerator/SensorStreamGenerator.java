@@ -34,8 +34,8 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.common.util.concurrent.AtomicDouble;*/
+import com.google.android.gms.location.LocationServices;*/
+import com.google.common.util.concurrent.AtomicDouble;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -199,11 +199,11 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
         return 15; // 1 minutes
     }
 
-    /*@Override
+    @Override
     public void sendStateChangeEvent() {
         Log.d(TAG, "sending a state change event for sensor");
-        EventBus.getDefault().post(new StateChangeEvent(LocationDataRecord.class));
-    }*/
+        EventBus.getDefault().post(new StateChangeEvent(SensorDataRecord.class));
+    }
 
     @Override
     public void offer(SensorDataRecord dataRecord) {
