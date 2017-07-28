@@ -226,3 +226,4 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
 		    updateStream();}
 		    
 }
+}
