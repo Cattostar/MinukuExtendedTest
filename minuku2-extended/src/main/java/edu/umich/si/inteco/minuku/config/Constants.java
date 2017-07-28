@@ -112,6 +112,10 @@ public class Constants {
         return getFirebaseUrl() + "/location";
     }
 
+    public String getFirebaseUrlForSensor() {
+        return getFirebaseUrl() + "/sensor";
+    }
+
     public String getFirebaseUrlForSemanticLocation() {
         return getFirebaseUrl() + "/semantic_location";
     }

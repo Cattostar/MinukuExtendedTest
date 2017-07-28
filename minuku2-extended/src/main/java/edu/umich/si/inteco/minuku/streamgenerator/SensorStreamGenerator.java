@@ -74,7 +74,7 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
         //GoogleApiClient.OnConnectionFailedListener,
         SensorEventListener
         {
-
+            protected Context mApplicationContext;
     private SensorStream mStream;
     private String TAG = "SensorStreamGenerator";
     
@@ -121,7 +121,7 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
 
         Log.d(TAG, "Stream " + TAG + " registered successfully");*/
         
-        //sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sensorManager = (SensorManager) mApplicationContext.getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         EventBus.getDefault().post(new IncrementLoadingProcessCountEvent());

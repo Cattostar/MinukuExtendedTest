@@ -69,7 +69,7 @@ public class SensorDataRecordDAO implements DAO<SensorDataRecord> {
     @Override
     public void add(SensorDataRecord entity) throws DAOException {
         Log.d(TAG, "Adding sensor data record.");
-        String firebaseUrlForSensor = Constants.getInstance().getFirebaseUrlForMoods();
+        String firebaseUrlForSensor = Constants.getInstance().getFirebaseUrlForSensor();
         Firebase sensorListRef = new Firebase(firebaseUrlForSensor)
                 .child(myUserEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(new Date()).toString());
@@ -85,7 +85,7 @@ public class SensorDataRecordDAO implements DAO<SensorDataRecord> {
     public Future<List<SensorDataRecord>> getAll() throws DAOException {
         final SettableFuture<List<SensorDataRecord>> settableFuture =
                 SettableFuture.create();
-        String firebaseUrlForSensor = Constants.getInstance().getFirebaseUrlForMoods();
+        String firebaseUrlForSensor = Constants.getInstance().getFirebaseUrlForSensor();
         Firebase sensorListRef = new Firebase(firebaseUrlForSensor)
                 .child(myUserEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(new Date()).toString());
@@ -135,7 +135,7 @@ public class SensorDataRecordDAO implements DAO<SensorDataRecord> {
                                       final Date someDate,
                                       final List<SensorDataRecord> synchronizedListOfRecords,
                                       final SettableFuture settableFuture) {
-        String firebaseUrlForSensor = Constants.getInstance().getFirebaseUrlForMoods();
+        String firebaseUrlForSensor = Constants.getInstance().getFirebaseUrlForSensor();
         Firebase firebaseRef = new Firebase(firebaseUrlForSensor)
                 .child(userEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(someDate).toString());
