@@ -75,8 +75,8 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
     private SensorStream mStream;
     private String TAG = "SensorStreamGenerator";
     
-    private SensorManager sensorManager;
-    private Sensor mAccelerometer;
+    private static SensorManager sensorManager;
+    private static Sensor mAccelerometer;
     private static MyApplication mInstance;
     public List<Sensor> listSensor;
 
