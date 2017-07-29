@@ -103,7 +103,9 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
 
     public SensorStreamGenerator(Context applicationContext) {
         super(applicationContext);
-        sensorManager = (SensorManager) mInstance.getSystemService(Context.SENSOR_SERVICE);
+        //sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+        sensorManager = (SensorManager) applicationContext.getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         this.mStream = new SensorStream(Constants.DEFAULT_QUEUE_SIZE);
@@ -117,23 +119,6 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
 
     @Override
     public void onStreamRegistration() {
-        // do nothing.
-        /* if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(mApplicationContext)
-                == ConnectionResult.SUCCESS) {
-            mGoogleApiClient = new GoogleApiClient.Builder(mApplicationContext)
-                    .addApi(LocationServices.API)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .build();
-            if (!mGoogleApiClient.isConnected() || !mGoogleApiClient.isConnecting()) {
-                mGoogleApiClient.connect();
-            }
-        } else {
-            Log.e(TAG, "Error occurred while attempting to access Google play.");
-        }
-
-        Log.d(TAG, "Stream " + TAG + " registered successfully");*/
-
 
         EventBus.getDefault().post(new IncrementLoadingProcessCountEvent());
 
