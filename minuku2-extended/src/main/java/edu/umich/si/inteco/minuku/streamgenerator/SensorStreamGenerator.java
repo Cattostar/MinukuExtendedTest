@@ -48,6 +48,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import edu.umich.si.inteco.minuku.config.Constants;
+import edu.umich.si.inteco.minuku.config.MyActivity;
 import edu.umich.si.inteco.minuku.config.MyApplication;
 import edu.umich.si.inteco.minuku.event.DecrementLoadingProcessCountEvent;
 import edu.umich.si.inteco.minuku.event.IncrementLoadingProcessCountEvent;
@@ -77,7 +78,8 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
     
     private static SensorManager sensorManager;
     private static Sensor mAccelerometer;
-    private MyApplication mInstance;
+    //private MyApplication mInstance;
+    private MyActivity mInstance;
     public List<Sensor> listSensor;
 
     //private GoogleApiClient mGoogleApiClient;
@@ -105,7 +107,7 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
         super(applicationContext);
         //sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        sensorManager = (SensorManager) applicationContext.getSystemService(Context.SENSOR_SERVICE);
+        sensorManager = (SensorManager) mInstance.getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         this.mStream = new SensorStream(Constants.DEFAULT_QUEUE_SIZE);
