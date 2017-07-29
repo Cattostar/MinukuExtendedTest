@@ -66,12 +66,12 @@ import edu.umich.si.inteco.minukucore.stream.Stream;
 /**
  * Created by neerajkumar on 7/18/16.
  */
-public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataRecord> implements
+public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataRecord>  implements
         //GoogleApiClient.ConnectionCallbacks,
         //GoogleApiClient.OnConnectionFailedListener,
         SensorEventListener
         {
-            protected Context mApplicationContext;
+    protected Context mApplicationContext;
     private SensorStream mStream;
     private String TAG = "SensorStreamGenerator";
     
@@ -89,7 +89,7 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
 
     private DAO<SensorDataRecord> mDAO;
 
-    public void onCreate() {
+    /*public void onCreate() {
                 // TODO Auto-generated method stub
                 mInstance.onCreate();
                 //mInstance = this;
@@ -97,12 +97,15 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
                 mAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
                 sensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
             }
+            */
 
 
 
     public SensorStreamGenerator(Context applicationContext) {
         super(applicationContext);
-
+        sensorManager = (SensorManager) mApplicationContext.getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        sensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         this.mStream = new SensorStream(Constants.DEFAULT_QUEUE_SIZE);
         this.mDAO = MinukuDAOManager.getInstance().getDaoFor(SensorDataRecord.class);
         this.accelerometerX = new AtomicDouble();
