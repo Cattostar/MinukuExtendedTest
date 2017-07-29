@@ -23,11 +23,8 @@
 package edu.umich.si.inteco.minuku.streamgenerator;
 
 import android.content.Context;
-import android.app.Activity;
-import android.app.Service; 
 //import android.location.Location;
 import android.os.AsyncTask;
-import android.os.Bundle;
 
 /*import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -50,14 +47,12 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import edu.umich.si.inteco.minuku.config.Constants;
-import edu.umich.si.inteco.minuku.dao.SensorDataRecordDAO;
 import edu.umich.si.inteco.minuku.event.DecrementLoadingProcessCountEvent;
 import edu.umich.si.inteco.minuku.event.IncrementLoadingProcessCountEvent;
 import edu.umich.si.inteco.minuku.logger.Log;
 import edu.umich.si.inteco.minuku.manager.MinukuDAOManager;
 import edu.umich.si.inteco.minuku.manager.MinukuStreamManager;
 import edu.umich.si.inteco.minuku.model.SensorDataRecord;
-import edu.umich.si.inteco.minuku.model.MoodDataRecord;
 import edu.umich.si.inteco.minuku.stream.SensorStream;
 import edu.umich.si.inteco.minukucore.dao.DAO;
 import edu.umich.si.inteco.minukucore.dao.DAOException;
@@ -80,7 +75,7 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
     
     private SensorManager sensorManager;
     private Sensor mAccelerometer;
-
+    private static SensorStreamGenerator minstance;
 
     public List<Sensor> listSensor;
 
@@ -93,12 +88,20 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
 
     private DAO<SensorDataRecord> mDAO;
 
+    public void onCreate() {
+                // TODO Auto-generated method stub
+                minstance.onCreate();
+                minstance = this;
+                sensorManager = (SensorManager) mApplicationContext.getSystemService(Context.SENSOR_SERVICE);
+                mAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+                sensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+            }
+
+
 
     public SensorStreamGenerator(Context applicationContext) {
         super(applicationContext);
-        sensorManager = (SensorManager) mApplicationContext.getSystemService(Context.SENSOR_SERVICE);
-        mAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+
         this.mStream = new SensorStream(Constants.DEFAULT_QUEUE_SIZE);
         this.mDAO = MinukuDAOManager.getInstance().getDaoFor(SensorDataRecord.class);
         this.accelerometerX = new AtomicDouble();
