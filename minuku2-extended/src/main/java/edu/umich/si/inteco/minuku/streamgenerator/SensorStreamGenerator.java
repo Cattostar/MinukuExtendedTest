@@ -76,8 +76,8 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
     private SensorStream mStream;
     private String TAG = "SensorStreamGenerator";
     
-    private static SensorManager sensorManager;
-    private static Sensor mAccelerometer;
+    private  SensorManager sensorManager;
+    private  Sensor mAccelerometer;
     //private MyApplication mInstance;
     private MyActivity mInstance;
     public List<Sensor> listSensor;
@@ -107,7 +107,8 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
         super(applicationContext);
         //sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        sensorManager = (SensorManager) mInstance.getSystemService(Context.SENSOR_SERVICE);
+        //sensorManager = (SensorManager) mInstance.getSystemService(Context.SENSOR_SERVICE);
+        sensorManager = (SensorManager) mApplicationContext.getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         this.mStream = new SensorStream(Constants.DEFAULT_QUEUE_SIZE);
