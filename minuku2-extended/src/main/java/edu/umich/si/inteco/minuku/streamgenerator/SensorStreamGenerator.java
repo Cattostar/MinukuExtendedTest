@@ -91,8 +91,12 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
 
     private DAO<SensorDataRecord> mDAO;
 
+
     public SensorStreamGenerator(Context applicationContext) {
         super(applicationContext);
+        sensorManager = (SensorManager) mApplicationContext.getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        sensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         this.mStream = new SensorStream(Constants.DEFAULT_QUEUE_SIZE);
         this.mDAO = MinukuDAOManager.getInstance().getDaoFor(SensorDataRecord.class);
         this.accelerometerX = new AtomicDouble();
@@ -120,10 +124,8 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
         }
 
         Log.d(TAG, "Stream " + TAG + " registered successfully");*/
-        
-        sensorManager = (SensorManager) mApplicationContext.getSystemService(Context.SENSOR_SERVICE);
-        mAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+
+
         EventBus.getDefault().post(new IncrementLoadingProcessCountEvent());
 
         AsyncTask.execute(new Runnable() {
