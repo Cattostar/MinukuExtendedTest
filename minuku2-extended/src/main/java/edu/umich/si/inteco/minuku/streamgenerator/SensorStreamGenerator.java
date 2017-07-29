@@ -75,8 +75,7 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
     
     private SensorManager sensorManager;
     private Sensor mAccelerometer;
-    private static SensorStreamGenerator minstance;
-
+    private static SensorStreamGenerator mInstance;
     public List<Sensor> listSensor;
 
     //private GoogleApiClient mGoogleApiClient;
@@ -90,8 +89,8 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
 
     public void onCreate() {
                 // TODO Auto-generated method stub
-                minstance.onCreate();
-                minstance = this;
+                mInstance.onCreate();
+                mInstance = this;
                 sensorManager = (SensorManager) mApplicationContext.getSystemService(Context.SENSOR_SERVICE);
                 mAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
                 sensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
