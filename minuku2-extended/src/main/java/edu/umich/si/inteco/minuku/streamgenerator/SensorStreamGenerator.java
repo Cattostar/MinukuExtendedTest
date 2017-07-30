@@ -70,9 +70,7 @@ import edu.umich.si.inteco.minukucore.stream.Stream;
 public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataRecord>  implements
         //GoogleApiClient.ConnectionCallbacks,
         //GoogleApiClient.OnConnectionFailedListener,
-        SensorEventListener
-        {
-    protected Context mApplicationContext;
+        SensorEventListener {
     private SensorStream mStream;
     private String TAG = "SensorStreamGenerator";
     
@@ -104,7 +102,7 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
 
 
     public SensorStreamGenerator(Context applicationContext) {
-        super(applicationContext);
+            super(applicationContext);
         //sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
         //sensorManager = (SensorManager) mInstance.getSystemService(Context.SENSOR_SERVICE);
