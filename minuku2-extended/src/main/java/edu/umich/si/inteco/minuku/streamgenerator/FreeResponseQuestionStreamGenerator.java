@@ -76,7 +76,7 @@ public class FreeResponseQuestionStreamGenerator extends AndroidStreamGenerator<
         return true;    }
 
     @Override
-    public long getUpdateFrequency() {
+    public double getUpdateFrequency() {
         return -1;
     }
 

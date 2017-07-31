@@ -88,7 +88,7 @@ public class NoteStreamGenerator extends AndroidStreamGenerator<NoteDataRecord> 
     }
 
     @Override
-    public long getUpdateFrequency() {
+    public double getUpdateFrequency() {
         return -1;
     }
 

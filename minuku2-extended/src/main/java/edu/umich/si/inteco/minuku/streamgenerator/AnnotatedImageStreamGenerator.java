@@ -112,7 +112,7 @@ public class AnnotatedImageStreamGenerator<T extends AnnotatedImageDataRecord>
     }
 
     @Override
-    public long getUpdateFrequency() {
+    public double getUpdateFrequency() {
         return -1;
     }
 

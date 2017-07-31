@@ -76,7 +76,7 @@ public class MultipleChoiceQuestionStreamGenerator extends AndroidStreamGenerato
         return true;    }
 
     @Override
-    public long getUpdateFrequency() {
+    public double getUpdateFrequency() {
         return -1;
     }
 
