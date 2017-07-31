@@ -31,7 +31,7 @@ dependencies {
     compile 'com.bugfender.sdk:android:0.+'
     compile 'com.firebase:firebase-client-android:2.4.0'
     //compile 'com.github.Cattostar:minukuextended:-SNAPSHOT'
-    compile 'com.github.InteractionEcologies:minukucore:-SNAPSHOT'
+    compile 'com.github.Cattostar:minukucore:-SNAPSHOT'
     compile 'com.google.android.gms:play-services-maps:9.2.1'
     compile 'com.google.android.gms:play-services-location:9.2.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'

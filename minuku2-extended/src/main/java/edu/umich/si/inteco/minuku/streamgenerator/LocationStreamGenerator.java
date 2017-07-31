@@ -22,10 +22,13 @@
 
 package edu.umich.si.inteco.minuku.streamgenerator;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -112,12 +115,11 @@ public class LocationStreamGenerator extends AndroidStreamGenerator<LocationData
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                try
-                {
+                try {
                     Log.d(TAG, "Stream " + TAG + "initialized from previous state");
                     Future<List<LocationDataRecord>> listFuture =
                             mDAO.getLast(Constants.LOCATION_QUEUE_SIZE);
-                    while(!listFuture.isDone()) {
+                    while (!listFuture.isDone()) {
                         Thread.sleep(1000);
                     }
                     Log.d(TAG, "Received data from Future for " + TAG);
@@ -133,7 +135,6 @@ public class LocationStreamGenerator extends AndroidStreamGenerator<LocationData
                 }
             }
         });
-
 
 
     }
@@ -159,8 +160,8 @@ public class LocationStreamGenerator extends AndroidStreamGenerator<LocationData
     public boolean updateStream() {
         Log.d(TAG, "Update stream called.");
         LocationDataRecord locationDataRecord = new LocationDataRecord(
-                (float)latitude.get(),
-                (float)longitude.get());
+                (float) latitude.get(),
+                (float) longitude.get());
         mStream.add(locationDataRecord);
         Log.d(TAG, "Location to be sent to event bus" + locationDataRecord);
 
@@ -177,8 +178,8 @@ public class LocationStreamGenerator extends AndroidStreamGenerator<LocationData
     }
 
     @Override
-    public long getUpdateFrequency() {
-        return 15; // 1 minutes
+    public double getUpdateFrequency() {
+        return 3.00; // 1 minutes
     }
 
     @Override
@@ -207,7 +208,7 @@ public class LocationStreamGenerator extends AndroidStreamGenerator<LocationData
             // If the location is accurate to 30 meters, it's good enough for us.
             // Post an update event and exit.
             if (location.getAccuracy() < 100.0f) {
-                if(!this.latitude.equals(location.getLatitude())
+                if (!this.latitude.equals(location.getLatitude())
                         || !this.longitude.equals(location.getLongitude())) {
                     Log.d(TAG, "Location is accurate upto 50 meters");
                     this.latitude.set(location.getLatitude());
@@ -231,9 +232,17 @@ public class LocationStreamGenerator extends AndroidStreamGenerator<LocationData
         //mLocationRequest.setSmallestDisplacement(Constants.LOCATION_MINUMUM_DISPLACEMENT_UPDATE_THRESHOLD);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
-        LocationServices.FusedLocationApi
-                .requestLocationUpdates(mGoogleApiClient, mLocationRequest,
-                         this);
+        if (ActivityCompat.checkSelfPermission(mApplicationContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mApplicationContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
     }
 
     @Override
