@@ -193,7 +193,7 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
 
     @Override
     public double getUpdateFrequency() {
-        return 0.05; // 1 minutes
+        return 15.00; // 1 minutes
     }
 
     @Override
