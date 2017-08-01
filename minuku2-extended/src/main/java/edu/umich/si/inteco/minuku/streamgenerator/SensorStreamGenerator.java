@@ -68,8 +68,6 @@ import edu.umich.si.inteco.minukucore.stream.Stream;
  * Created by neerajkumar on 7/18/16.
  */
 public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataRecord>  implements
-        //GoogleApiClient.ConnectionCallbacks,
-        //GoogleApiClient.OnConnectionFailedListener,
         SensorEventListener {
     private SensorStream mStream;
     private String TAG = "SensorStreamGenerator";
@@ -109,7 +107,7 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
         sensorManager = (SensorManager) mApplicationContext.getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-        this.mStream = new SensorStream(Constants.DEFAULT_QUEUE_SIZE);
+        this.mStream = new SensorStream(Constants.SENSOR_QUEUE_SIZE);
         this.mDAO = MinukuDAOManager.getInstance().getDaoFor(SensorDataRecord.class);
         this.accelerometerX = new AtomicDouble();
         this.accelerometerY = new AtomicDouble();
@@ -130,7 +128,7 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
                 {
                     Log.d(TAG, "Stream " + TAG + "initialized from previous state");
                     Future<List<SensorDataRecord>> listFuture =
-                            mDAO.getLast(Constants.DEFAULT_QUEUE_SIZE);
+                            mDAO.getLast(Constants.SENSOR_QUEUE_SIZE);
                     while(!listFuture.isDone()) {
                         Thread.sleep(1000);
                     }

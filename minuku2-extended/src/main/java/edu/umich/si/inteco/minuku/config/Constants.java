@@ -220,6 +220,7 @@ public class Constants {
 
     //specific queue sizes
     public static final int LOCATION_QUEUE_SIZE = 50;
+    public static final int SENSOR_QUEUE_SIZE= 150;
     public static final int IMAGE_QUEUE_SIZE = 20;
     public static final int MOOD_QUEUE_SIZE = 20;
 
