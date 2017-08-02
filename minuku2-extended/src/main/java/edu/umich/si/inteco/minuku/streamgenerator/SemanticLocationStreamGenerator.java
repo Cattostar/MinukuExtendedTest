@@ -97,7 +97,7 @@ public class SemanticLocationStreamGenerator
     }
 
     @Override
-    public double getUpdateFrequency() {
+    public long getUpdateFrequency() {
         return -1;
     }
 

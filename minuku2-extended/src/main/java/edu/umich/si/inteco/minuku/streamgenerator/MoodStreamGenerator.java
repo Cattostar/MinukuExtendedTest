@@ -97,7 +97,7 @@ public class MoodStreamGenerator extends AndroidStreamGenerator<MoodDataRecord> 
     }
 
     @Override
-    public double getUpdateFrequency() {
+    public long getUpdateFrequency() {
         return Constants.MOOD_STREAM_GENERATOR_UPDATE_FREQUENCY_MINUTES;
     }
 
