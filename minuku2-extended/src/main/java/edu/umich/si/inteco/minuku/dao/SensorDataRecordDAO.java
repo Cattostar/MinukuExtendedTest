@@ -68,12 +68,12 @@ public class SensorDataRecordDAO implements DAO<SensorDataRecord> {
 
     @Override
     public void add(SensorDataRecord entity) throws DAOException {
-        Log.d(TAG, "Adding sensor data record.");
+       /* Log.d(TAG, "Adding sensor data record.");
         String firebaseUrlForSensor = Constants.getInstance().getFirebaseUrlForSensor();
         Firebase sensorListRef = new Firebase(firebaseUrlForSensor)
                 .child(myUserEmail)
                 .child(new SimpleDateFormat("MMddyyyy").format(new Date()).toString());
-        sensorListRef.push().setValue((SensorDataRecord) entity);
+        sensorListRef.push().setValue((SensorDataRecord) entity);*/
     }
 
     @Override
