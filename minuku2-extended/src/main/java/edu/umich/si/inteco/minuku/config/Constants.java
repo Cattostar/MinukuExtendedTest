@@ -30,6 +30,10 @@ public class Constants {
     public static final String YES = "YES";
     public static final String NO = "NO";
 
+    public static final String PACKAGE_NAME ="edu.umich.si.inteco.minuku.config";
+    public static final String STRING_ACTION = PACKAGE_NAME + ".STRING_ACTION";
+    public static final String STRING_EXTRA = PACKAGE_NAME + ".STRING_EXTRA";
+
     private boolean firebaseUrlOverridenOnce = false;
     private boolean appNameOverridenOnce = false;
     private static Constants instance;
@@ -163,6 +167,11 @@ public class Constants {
     public String getFirebaseUrlForDiaryScreenshot() {
         return getFirebaseUrl() + "/diary_screenshot";
     }
+
+    public String getFirebaseUrlForActivity() {
+        return getFirebaseUrl() + "/activity";
+    }
+
 
     // Firebase config
     private String FIREBASE_URL = "";
