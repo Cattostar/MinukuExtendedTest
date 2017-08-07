@@ -60,7 +60,4 @@ dependencies {
     /*Logger*/
     compile 'com.bugfender.sdk:android:0.+'
     compile 'com.android.support.test.espresso:espresso-core:2.2.2'
-    compile project(path: ':app')
-    compile project(path: ':app')
-    compile project(path: ':app')
 }
