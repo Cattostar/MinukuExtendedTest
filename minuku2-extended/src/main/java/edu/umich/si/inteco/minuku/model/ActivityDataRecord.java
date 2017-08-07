@@ -16,7 +16,7 @@ import edu.umich.si.inteco.minukucore.model.DataRecord;
 public class ActivityDataRecord implements DataRecord{
 
     //public List<DetectedActivity> detectedActivities;
-    public int most_probable_activity;
+    public int mostProbableActivity;
     //public String most_probable_activity;
     public int confidence;
     public long creationTime;
@@ -25,19 +25,19 @@ public class ActivityDataRecord implements DataRecord{
 
     }
 
-    public ActivityDataRecord(int most_probable_activity, int confidence) {
+    public ActivityDataRecord(int mostProbableActivity, int confidence) {
         this.creationTime = new Date().getTime();
         //this.detectedActivities = detectedActivities;
-        this.most_probable_activity = most_probable_activity;//change from int to string
+        this.mostProbableActivity = mostProbableActivity;//change from int to string
         this.confidence = confidence;
     }
 
-    public int getActivityConfidence() {
+    public int getConfidence() {
         return confidence;
     }
 
-    public int getMost_probable_activity() {
-        return most_probable_activity;
+    public int getMostProbableActivity() {
+        return mostProbableActivity;
     }
 
     /*
@@ -55,8 +55,8 @@ public class ActivityDataRecord implements DataRecord{
         this.confidence = confidence;
     }
 
-    public void setMost_probable_activity(int most_probable_activity) {
-        this.most_probable_activity = most_probable_activity;
+    public void setMostProbableActivity(int mostProbableActivity) {
+        this.mostProbableActivity = mostProbableActivity;
     }
 
     /*
@@ -72,6 +72,6 @@ public class ActivityDataRecord implements DataRecord{
 
     @Override
     public String toString() {
-        return "Act:" + this.most_probable_activity + ":" + this.confidence;
+        return "Act:" + this.mostProbableActivity + ":" + this.confidence;
     }
 }

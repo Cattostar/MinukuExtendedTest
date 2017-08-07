@@ -81,7 +81,7 @@ public class ActivityStreamGenerator extends AndroidStreamGenerator<ActivityData
     private GoogleApiClient mGoogleApiClient;//register google service
     //private LocationRequest mLocationRequest;
 
-    private static AtomicInteger most_probable_activity;//atomicinteger
+    private static AtomicInteger mostProbableActivity;//atomicinteger
     private static AtomicInteger confidence;
     //private AtomicDoubleArray detectedActivities;
 
@@ -91,7 +91,7 @@ public class ActivityStreamGenerator extends AndroidStreamGenerator<ActivityData
         super(applicationContext);
         this.mStream = new ActivityStream(Constants.DEFAULT_QUEUE_SIZE);
         this.mDAO = MinukuDAOManager.getInstance().getDaoFor(ActivityDataRecord.class);
-        this.most_probable_activity = new AtomicInteger();
+        this.mostProbableActivity = new AtomicInteger();
         this.confidence = new AtomicInteger();
         //this.detectedActivities = new AtomicDoubleArray(double[]);
         this.register();
@@ -157,10 +157,10 @@ public class ActivityStreamGenerator extends AndroidStreamGenerator<ActivityData
             mBroadcastReceiver = new BroadcastReceiver(){
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    int confidence_1 = intent.getIntExtra(ActivityRecognitionService.EXTRA_CONFIDENCE, -1);
-                    int most_probable_activity_1 = intent.getIntExtra(ActivityRecognitionService.EXTRA_ACTIVITY,-1);
-                    ActivityStreamGenerator.confidence.set(confidence_1);
-                    ActivityStreamGenerator.most_probable_activity.set(most_probable_activity_1);
+                    int confidenceNew = intent.getIntExtra(ActivityRecognitionService.EXTRA_CONFIDENCE, -1);
+                    int mostProbableActivityNew = intent.getIntExtra(ActivityRecognitionService.EXTRA_ACTIVITY,-1);
+                    ActivityStreamGenerator.confidence.set(confidenceNew);
+                    ActivityStreamGenerator.mostProbableActivity.set(mostProbableActivityNew);
                     updateStream();
                     //setInfo("    onReceive() -> " + activity + " (" + confidence + "%)");
                 }
@@ -185,7 +185,7 @@ public class ActivityStreamGenerator extends AndroidStreamGenerator<ActivityData
     public boolean updateStream() {
         Log.d(TAG, "Update stream called.");
         ActivityDataRecord activityDataRecord= new ActivityDataRecord(
-                (int) most_probable_activity.get(),
+                (int) mostProbableActivity.get(),
                 (int) confidence.get()
                 //(List) detectedActivities(),
                 );
