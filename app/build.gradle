@@ -1,10 +1,10 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
     buildToolsVersion "23.0.2"
     defaultConfig {
-        //applicationId "edu.umich.si.inteco.minuku.extended"
+        applicationId "edu.umich.si.inteco.minuku.extended"
         minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
