@@ -70,7 +70,7 @@ public class ActivityStreamGenerator extends AndroidStreamGenerator<ActivityData
 {
 
     //interval
-    private static final long INTERVAL_RECOGNITION=10*60*1000;
+    private static final long INTERVAL_RECOGNITION=5*60*1000;
     private ActivityStream mStream;
     private String TAG = "ActivityStreamGenerator";
 
@@ -185,9 +185,9 @@ public class ActivityStreamGenerator extends AndroidStreamGenerator<ActivityData
     public boolean updateStream() {
         Log.d(TAG, "Update stream called.");
         ActivityDataRecord activityDataRecord= new ActivityDataRecord(
-                (int) confidence.get(),
+                (int) most_probable_activity.get(),
+                (int) confidence.get()
                 //(List) detectedActivities(),
-                (int) most_probable_activity.get()
                 );
         mStream.add(activityDataRecord);
         Log.d(TAG, "Activity to be sent to event bus" + activityDataRecord);
