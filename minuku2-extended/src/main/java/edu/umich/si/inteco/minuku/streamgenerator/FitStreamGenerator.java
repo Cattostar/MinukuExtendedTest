@@ -72,8 +72,6 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
             private FitStream mStream;
             private String TAG = "FitStreamGenerator";
             private GoogleApiClient mGoogleApiClient;
-            //private LocationRequest mLocationRequest;
-
             private AtomicInteger stepCount;
 
 
