@@ -73,7 +73,9 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
             private String TAG = "FitStreamGenerator";
             private GoogleApiClient mGoogleApiClient;
             private AtomicInteger stepCount;
-
+            private static final int REQUEST_OAUTH = 1;
+            private static final String AUTH_PENDING = "auth_state_pending";
+            private boolean authInProgress = false;
 
             DAO<FitDataRecord> mDAO;
 
@@ -88,7 +90,6 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
 
             @Override
             public void onStreamRegistration() {
-                // do nothing.
                 if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(mApplicationContext)
                         == ConnectionResult.SUCCESS) {
                     mGoogleApiClient = new GoogleApiClient.Builder(mApplicationContext)
