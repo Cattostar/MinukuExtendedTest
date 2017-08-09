@@ -14,6 +14,7 @@ import android.support.v4.app.ActivityCompat;
 
 
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.fitness.FitnessStatusCodes;
 import com.google.android.gms.fitness.request.DataSourcesRequest;
 import com.google.android.gms.fitness.request.SensorRequest;
 import com.google.android.gms.fitness.result.DataSourcesResult;
@@ -96,6 +97,7 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
                             .addApi(Fitness.RECORDING_API)
                             //.addApi(Fitness.HISTORY_API)
                             .addApi(Fitness.SENSORS_API)
+                            .addScope(new Scope(Scopes.FITNESS_LOCATION_READ))
                             .addConnectionCallbacks(
                                     new GoogleApiClient.ConnectionCallbacks() {
 
@@ -104,6 +106,7 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
                                             Log.i(TAG, "Connected!!!");
                                             // Now you can make calls to the Fitness APIs.
                                             // Put application specific code here.
+
                                         }
 
                                         @Override
@@ -260,6 +263,29 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
                                 }
                             }
                         });
+            }
+
+            public void subscribe() {
+                // To create a subscription, invoke the Recording API. As soon as the subscription is
+                // active, fitness data will start recording.
+                // [START subscribe_to_datatype]
+                Fitness.RecordingApi.subscribe(mGoogleApiClient, DataType.TYPE_ACTIVITY_SAMPLE)
+                        .setResultCallback(new ResultCallback<Status>() {
+                            @Override
+                            public void onResult(Status status) {
+                                if (status.isSuccess()) {
+                                    if (status.getStatusCode()
+                                            == FitnessStatusCodes.SUCCESS_ALREADY_SUBSCRIBED) {
+                                        Log.i(TAG, "Existing subscription for activity detected.");
+                                    } else {
+                                        Log.i(TAG, "Successfully subscribed!");
+                                    }
+                                } else {
+                                    Log.i(TAG, "There was a problem subscribing.");
+                                }
+                            }
+                        });
+                // [END subscribe_to_datatype]
             }
 
             @Override
