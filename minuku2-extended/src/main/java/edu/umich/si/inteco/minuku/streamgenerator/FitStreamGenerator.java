@@ -5,7 +5,11 @@ package edu.umich.si.inteco.minuku.streamgenerator;
  */
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -77,6 +81,9 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
             private static final int REQUEST_OAUTH = 1;
             private static final String AUTH_PENDING = "auth_state_pending";
             private boolean authInProgress = false;
+
+
+
 
             DAO<FitDataRecord> mDAO;
 
@@ -295,8 +302,18 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
 
             @Override
             public void onConnectionFailed(ConnectionResult connectionResult) {
-                Log.e(TAG, "Connection to Google play services failed.");
-                stopCheckingForFitnessUpdates();
+                //Log.e(TAG, "Connection to Google play services failed.");
+                //stopCheckingForFitnessUpdates();
+                if( !authInProgress ) {
+                    try {
+                        authInProgress = true;
+                        connectionResult.startResolutionForResult((Activity)mApplicationContext, REQUEST_OAUTH );
+                    } catch(IntentSender.SendIntentException e ) {
+
+                    }
+                } else {
+                    Log.e( "GoogleFit", "authInProgress" );
+                }
             }
 
             private void stopCheckingForFitnessUpdates() {

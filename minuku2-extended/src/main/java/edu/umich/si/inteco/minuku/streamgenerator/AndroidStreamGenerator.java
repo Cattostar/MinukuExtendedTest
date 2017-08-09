@@ -22,6 +22,7 @@
 
 package edu.umich.si.inteco.minuku.streamgenerator;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -40,9 +41,11 @@ public abstract class AndroidStreamGenerator<T extends DataRecord>
         implements StreamGenerator<T> {
 
     protected Context mApplicationContext;
+    //protected Activity mApplication;
 
     public AndroidStreamGenerator(Context aApplicationContext) {
         this.mApplicationContext = aApplicationContext;
+
     }
 
     public AndroidStreamGenerator() {
