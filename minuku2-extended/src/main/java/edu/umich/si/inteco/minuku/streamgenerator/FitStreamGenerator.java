@@ -7,8 +7,8 @@ package edu.umich.si.inteco.minuku.streamgenerator;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -65,6 +65,9 @@ import com.google.android.gms.fitness.request.DataSourcesRequest;
 import com.google.android.gms.fitness.request.OnDataPointListener;
 import com.google.android.gms.fitness.request.SensorRequest;
 
+import static android.R.attr.data;
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
 
 
 public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> implements
@@ -131,9 +134,10 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
                             .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
                             .addOnConnectionFailedListener(this)
                             .build();
-                    if (!mGoogleApiClient.isConnected() || !mGoogleApiClient.isConnecting()) {
-                        mGoogleApiClient.connect();
-                    }
+
+                   // if (!mGoogleApiClient.isConnected() || !mGoogleApiClient.isConnecting()) {
+                     //   mGoogleApiClient.connect();
+                    //}
                 } else {
                     Log.e(TAG, "Error occurred while attempting to access Google play.");
                 }
@@ -181,6 +185,25 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
                 }
             }
 
+
+            /*
+
+            @Override
+            protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+                if( requestCode == REQUEST_OAUTH ) {
+                    authInProgress = false;
+                    if( resultCode == RESULT_OK ) {
+                        if( !mGoogleApiClient.isConnecting() && !mGoogleApiClient.isConnected() ) {
+                            mGoogleApiClient.connect();
+                        }
+                    } else if( resultCode == RESULT_CANCELED ) {
+                        Log.e( "GoogleFit", "RESULT_CANCELED" );
+                    }
+                } else {
+                    Log.e("GoogleFit", "requestCode NOT request_oauth");
+                }
+            }
+*/
 
             @Override
             public Stream<FitDataRecord> generateNewStream() {
@@ -256,7 +279,7 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
                 SensorRequest request = new SensorRequest.Builder()
                         .setDataSource( dataSource )
                         .setDataType( dataType )
-                        .setSamplingRate( 1, TimeUnit.SECONDS )
+                        .setSamplingRate( 3, TimeUnit.SECONDS )
                         .build();
 
                 Fitness.SensorsApi.add(mGoogleApiClient, request, this)
@@ -304,7 +327,7 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
             public void onConnectionFailed(ConnectionResult connectionResult) {
                 //Log.e(TAG, "Connection to Google play services failed.");
                 //stopCheckingForFitnessUpdates();
-                if( !authInProgress ) {
+               /* if( !authInProgress ) {
                     try {
                         authInProgress = true;
                         connectionResult.startResolutionForResult((Activity)mApplicationContext, REQUEST_OAUTH );
@@ -313,7 +336,7 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
                     }
                 } else {
                     Log.e( "GoogleFit", "authInProgress" );
-                }
+                }*/
             }
 
             private void stopCheckingForFitnessUpdates() {
