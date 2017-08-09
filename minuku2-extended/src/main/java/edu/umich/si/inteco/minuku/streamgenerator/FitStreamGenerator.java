@@ -94,7 +94,7 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
                         == ConnectionResult.SUCCESS) {
                     mGoogleApiClient = new GoogleApiClient.Builder(mApplicationContext)
                             .addApi(Fitness.RECORDING_API)
-                            .addApi(Fitness.HISTORY_API)
+                            //.addApi(Fitness.HISTORY_API)
                             .addApi(Fitness.SENSORS_API)
                             .addConnectionCallbacks(
                                     new GoogleApiClient.ConnectionCallbacks() {
@@ -118,7 +118,7 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
                                         }
                                     }
                             )
-//                            .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
+                            .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
                             .addOnConnectionFailedListener(this)
                             .build();
                     if (!mGoogleApiClient.isConnected() || !mGoogleApiClient.isConnecting()) {
