@@ -59,7 +59,7 @@ import com.google.android.gms.fitness.data.Value;
 import com.google.android.gms.fitness.request.DataSourcesRequest;
 import com.google.android.gms.fitness.request.OnDataPointListener;
 import com.google.android.gms.fitness.request.SensorRequest;
-import com.google.android.gms.fitness.result.DataSourcesResult;
+
 
 
 public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> implements
@@ -96,8 +96,29 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
                             .addApi(Fitness.RECORDING_API)
                             .addApi(Fitness.HISTORY_API)
                             .addApi(Fitness.SENSORS_API)
-                            .addConnectionCallbacks(this)
-                            .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
+                            .addConnectionCallbacks(
+                                    new GoogleApiClient.ConnectionCallbacks() {
+
+                                        @Override
+                                        public void onConnected(Bundle bundle) {
+                                            Log.i(TAG, "Connected!!!");
+                                            // Now you can make calls to the Fitness APIs.
+                                            // Put application specific code here.
+                                        }
+
+                                        @Override
+                                        public void onConnectionSuspended(int i) {
+                                            // If your connection to the sensor gets lost at some point,
+                                            // you'll be able to determine the reason and react to it here.
+                                            if (i == GoogleApiClient.ConnectionCallbacks.CAUSE_NETWORK_LOST) {
+                                                Log.i(TAG, "Connection lost.  Cause: Network Lost.");
+                                            } else if (i == GoogleApiClient.ConnectionCallbacks.CAUSE_SERVICE_DISCONNECTED) {
+                                                Log.i(TAG, "Connection lost.  Reason: Service Disconnected");
+                                            }
+                                        }
+                                    }
+                            )
+//                            .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
                             .addOnConnectionFailedListener(this)
                             .build();
                     if (!mGoogleApiClient.isConnected() || !mGoogleApiClient.isConnecting()) {
@@ -149,6 +170,7 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
                     Log.e(TAG, "Another stream which provides LocationDataRecord is already registered.");
                 }
             }
+
 
             @Override
             public Stream<FitDataRecord> generateNewStream() {
