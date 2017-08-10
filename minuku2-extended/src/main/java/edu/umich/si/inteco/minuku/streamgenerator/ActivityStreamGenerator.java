@@ -70,7 +70,7 @@ public class ActivityStreamGenerator extends AndroidStreamGenerator<ActivityData
 {
 
     //interval
-    private static final long INTERVAL_RECOGNITION=10*1000;
+    private static final long INTERVAL_RECOGNITION=1000;//change from 10 sec into 1 sec.
     private ActivityStream mStream;
     private String TAG = "ActivityStreamGenerator";
 

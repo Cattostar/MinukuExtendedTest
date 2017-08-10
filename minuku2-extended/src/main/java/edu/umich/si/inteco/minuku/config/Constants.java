@@ -253,8 +253,8 @@ public class Constants {
     public static final String BUNDLE_KEY_FOR_NOTIFICATION_SOURCE = "NOTIFICATION_SOURCE";
     //public static final String APP_NAME = "DReflect";
     //public static final String RUNNING_APP_DECLARATION = APP_NAME + " is running in the background";
-    public static final long INTERNAL_LOCATION_UPDATE_FREQUENCY = 1 * 300 * 1000;
-    public static final float LOCATION_MINUMUM_DISPLACEMENT_UPDATE_THRESHOLD = 50 ;
+    public static final long INTERNAL_LOCATION_UPDATE_FREQUENCY =1000;//change from 300 to 1
+    public static final float LOCATION_MINUMUM_DISPLACEMENT_UPDATE_THRESHOLD = 5 ; //change from 50 to 5
 
     public static final String DIABETES_LOG_NOTIFICATION_SOURCE = "DIABETES_LOG";
 

@@ -26,6 +26,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -62,6 +63,8 @@ import edu.umich.si.inteco.minukucore.exception.StreamAlreadyExistsException;
 import edu.umich.si.inteco.minukucore.exception.StreamNotFoundException;
 import edu.umich.si.inteco.minukucore.stream.Stream;
 
+import static android.location.LocationManager.GPS_PROVIDER;
+
 /**
  * Created by neerajkumar on 7/18/16.
  */
@@ -75,6 +78,8 @@ public class LocationStreamGenerator extends AndroidStreamGenerator<LocationData
 
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
+    private LocationManager mLocationManager;
+    private LocationListener mListener;
 
     private AtomicDouble latitude;
     private AtomicDouble longitude;
@@ -179,7 +184,7 @@ public class LocationStreamGenerator extends AndroidStreamGenerator<LocationData
 
     @Override
     public long getUpdateFrequency() {
-        return 5; // 1 minutes
+        return 2; // 1 minutes
     }
 
     @Override
@@ -225,13 +230,14 @@ public class LocationStreamGenerator extends AndroidStreamGenerator<LocationData
     @Override
     public void onConnected(Bundle bundle) {
         Log.d(TAG, "onConnected");
-
+        //mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1L,5L, this);
         mLocationRequest = LocationRequest.create();
         mLocationRequest.setInterval(Constants.INTERNAL_LOCATION_UPDATE_FREQUENCY);
         mLocationRequest.setFastestInterval(Constants.INTERNAL_LOCATION_UPDATE_FREQUENCY);
-        //mLocationRequest.setSmallestDisplacement(Constants.LOCATION_MINUMUM_DISPLACEMENT_UPDATE_THRESHOLD);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        mLocationRequest.setSmallestDisplacement(Constants.LOCATION_MINUMUM_DISPLACEMENT_UPDATE_THRESHOLD);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);//improve the frequency
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+
         //if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mApplicationContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
