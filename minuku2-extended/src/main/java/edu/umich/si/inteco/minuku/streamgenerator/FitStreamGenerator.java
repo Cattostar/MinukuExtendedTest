@@ -34,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import edu.umich.si.inteco.minuku.config.Constants;
+import edu.umich.si.inteco.minuku.config.PassFitData;
 import edu.umich.si.inteco.minuku.dao.FitDataRecordDAO;
 import edu.umich.si.inteco.minuku.event.DecrementLoadingProcessCountEvent;
 import edu.umich.si.inteco.minuku.event.IncrementLoadingProcessCountEvent;
@@ -84,7 +85,7 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
             private static final int REQUEST_OAUTH = 1;
             private static final String AUTH_PENDING = "auth_state_pending";
             private boolean authInProgress = false;
-
+            public PassFitData passFitData;
 
 
 
@@ -101,7 +102,7 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
 
             @Override
             public void onStreamRegistration() {
-                if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(mApplicationContext)
+                /*if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(mApplicationContext)
                         == ConnectionResult.SUCCESS) {
                     mGoogleApiClient = new GoogleApiClient.Builder(mApplicationContext)
                             .addApi(Fitness.RECORDING_API)
@@ -142,7 +143,7 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
                     Log.e(TAG, "Error occurred while attempting to access Google play.");
                 }
 
-                Log.d(TAG, "Stream " + TAG + " registered successfully");
+                Log.d(TAG, "Stream " + TAG + " registered successfully");*/
 
                 EventBus.getDefault().post(new IncrementLoadingProcessCountEvent());
 
@@ -186,24 +187,7 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
             }
 
 
-            /*
 
-            @Override
-            protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-                if( requestCode == REQUEST_OAUTH ) {
-                    authInProgress = false;
-                    if( resultCode == RESULT_OK ) {
-                        if( !mGoogleApiClient.isConnecting() && !mGoogleApiClient.isConnected() ) {
-                            mGoogleApiClient.connect();
-                        }
-                    } else if( resultCode == RESULT_CANCELED ) {
-                        Log.e( "GoogleFit", "RESULT_CANCELED" );
-                    }
-                } else {
-                    Log.e("GoogleFit", "requestCode NOT request_oauth");
-                }
-            }
-*/
 
             @Override
             public Stream<FitDataRecord> generateNewStream() {
@@ -214,7 +198,7 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
             public boolean updateStream() {
                 Log.d(TAG, "Update stream called.");
                 FitDataRecord fitDataRecord = new FitDataRecord(
-                        (int) stepCount.get()
+                (int) passFitData.getFitData()
                         );
                 mStream.add(fitDataRecord);
                 Log.d(TAG, "Fitness to be sent to event bus" + fitDataRecord);
@@ -233,7 +217,7 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
 
             @Override
             public long getUpdateFrequency() {
-                return 15; // 1 minutes
+                return 3; //12s
             }
 
             @Override
@@ -252,7 +236,7 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
             public void onConnected(Bundle bundle) {
                 Log.d(TAG, "onConnected");
                 // getting the data cumulatively
-                DataSourcesRequest dataSourceRequest = new DataSourcesRequest.Builder()
+               /* DataSourcesRequest dataSourceRequest = new DataSourcesRequest.Builder()
                         .setDataTypes( DataType.TYPE_STEP_COUNT_CUMULATIVE )
                         .setDataSourceTypes( DataSource.TYPE_RAW )
                         .build();
@@ -270,7 +254,7 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
                 };
 
                 Fitness.SensorsApi.findDataSources(mGoogleApiClient, dataSourceRequest)
-                        .setResultCallback(dataSourcesResultCallback);
+                        .setResultCallback(dataSourcesResultCallback);*/
             }
 
 
@@ -353,12 +337,12 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
 
             @Override
             public void onDataPoint(DataPoint dataPoint) {
-                Log.e("Google Fit","We made it into onDataPoint");
+                /*Log.e("Google Fit","We made it into onDataPoint");
                 for( final Field field : dataPoint.getDataType().getFields() ) {
                     final int value = dataPoint.getValue( field ).asInt();
                     stepCount.set(value);
-                    updateStream();
+                    updateStream();*/
                 }
 
             }
-        }
+
