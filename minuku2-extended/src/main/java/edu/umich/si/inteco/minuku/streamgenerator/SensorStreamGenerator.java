@@ -139,6 +139,18 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
             e.printStackTrace();
         }	//出现异常的时候使用catch
         this.register();
+        textFileLogger = new Runnable() {
+            @Override
+            public void run() {
+                if(index<50000){
+                    writeToFile(reading);
+                    index++;}
+                //Repeats the logging every 0.05 second
+                mHandler.postDelayed(this, 50);//why repeats?
+            }
+        };
+        //Starts the logging after 10 second
+        mHandler.postDelayed(textFileLogger, 50);
     }
 
 
@@ -202,18 +214,7 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
                 (float)accelerometerZ.get());
         mStream.add(sensorDataRecord);
 
-        textFileLogger = new Runnable() {
-            @Override
-            public void run() {
-                if(index<50000){
-                    writeToFile(reading);
-                    index++;}
-                //Repeats the logging every 0.05 second
-                mHandler.postDelayed(this, 50);//why repeats?
-            }
-        };
-        //Starts the logging after 10 second
-        mHandler.postDelayed(textFileLogger, 50);
+
 
         Log.d(TAG, "Sensor to be sent to event bus" + sensorDataRecord);
 
