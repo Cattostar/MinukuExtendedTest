@@ -39,13 +39,18 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Environment;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+
 
 import edu.umich.si.inteco.minuku.config.Constants;
 import edu.umich.si.inteco.minuku.config.MyActivity;
@@ -77,6 +82,7 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
     //private MyApplication mInstance;
     private MyActivity mInstance;
     public List<Sensor> listSensor;
+    private int index = 0;
 
     //private GoogleApiClient mGoogleApiClient;
     //private LocationRequest mLocationRequest;
@@ -86,6 +92,12 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
     private AtomicDouble accelerometerZ;
 
     private DAO<SensorDataRecord> mDAO;
+
+    private String filename = "DataCollection.txt";//write to firebase
+    private Runnable textFileLogger;//?
+    private String newLine = "\n";
+    static float[] reading = new float[3];
+    private android.os.Handler mHandler = new android.os.Handler();
 
     /*public void onCreate() {
                 // TODO Auto-generated method stub
@@ -102,7 +114,7 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
     public SensorStreamGenerator(Context applicationContext) {
             super(applicationContext);
         //sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-
+        String firstline ="time accelerometerx accelerometery accelerometerz gyroscopex gyroscopey gyroscopez \n";
         //sensorManager = (SensorManager) mInstance.getSystemService(Context.SENSOR_SERVICE);
         sensorManager = (SensorManager) mApplicationContext.getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -112,6 +124,20 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
         this.accelerometerX = new AtomicDouble();
         this.accelerometerY = new AtomicDouble();
         this.accelerometerZ = new AtomicDouble();
+        try {
+            FileOutputStream fos = mApplicationContext.openFileOutput(filename,
+                    Context.MODE_APPEND | Context.MODE_WORLD_READABLE);
+            String storageState = Environment.getExternalStorageState();
+            if (storageState.equals(Environment.MEDIA_MOUNTED)) {
+                File file = new File(mApplicationContext.getExternalFilesDir(null),
+                        filename);
+                FileOutputStream fos2 = new FileOutputStream(file);
+                fos2.write(firstline.getBytes());
+                fos2.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }	//出现异常的时候使用catch
         this.register();
     }
 
@@ -175,6 +201,20 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
                 (float)accelerometerY.get(),
                 (float)accelerometerZ.get());
         mStream.add(sensorDataRecord);
+
+        textFileLogger = new Runnable() {
+            @Override
+            public void run() {
+                if(index<50000){
+                    writeToFile(reading);
+                    index++;}
+                //Repeats the logging every 0.05 second
+                mHandler.postDelayed(this, 50);//why repeats?
+            }
+        };
+        //Starts the logging after 10 second
+        mHandler.postDelayed(textFileLogger, 50);
+
         Log.d(TAG, "Sensor to be sent to event bus" + sensorDataRecord);
 
         // also post an event.
@@ -223,7 +263,28 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
     			this.accelerometerY.set(event.values[1]);
     			this.accelerometerZ.set(event.values[2]);
 		    //Accelerometerx.setText(Float.toString(accx));
+               reading[0]=event.values[0];
+               reading[1]=event.values[1];
+               reading[2]=event.values[2];
 		    updateStream();}
 		    
 }
+
+    private void writeToFile(float[] f ) {
+        try {
+            FileOutputStream fos = mApplicationContext.openFileOutput(filename,
+                    Context.MODE_APPEND | Context.MODE_WORLD_READABLE);
+            String storageState = Environment.getExternalStorageState();
+            if (storageState.equals(Environment.MEDIA_MOUNTED)) {
+                File file = new File(mApplicationContext.getExternalFilesDir(null), filename);
+                FileOutputStream fos2 = new FileOutputStream(file, true);
+                String s = Arrays.toString (f);
+                fos2.write(s.substring(1,(s.length()-2)).getBytes());
+                fos2.write(newLine.getBytes());
+                fos2.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
