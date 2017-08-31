@@ -93,7 +93,7 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
 
             public FitStreamGenerator(Context applicationContext) {
                 super(applicationContext);
-                this.mStream = new FitStream(Constants.DEFAULT_QUEUE_SIZE);
+                this.mStream = new FitStream(Constants.FIT_QUEUE_SIZE);
                 this.mDAO = MinukuDAOManager.getInstance().getDaoFor(FitDataRecord.class);
                 this.stepCount = new AtomicInteger();
                 this.register();
@@ -102,48 +102,6 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
 
             @Override
             public void onStreamRegistration() {
-                /*if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(mApplicationContext)
-                        == ConnectionResult.SUCCESS) {
-                    mGoogleApiClient = new GoogleApiClient.Builder(mApplicationContext)
-                            .addApi(Fitness.RECORDING_API)
-                            //.addApi(Fitness.HISTORY_API)
-                            .addApi(Fitness.SENSORS_API)
-                            .addScope(new Scope(Scopes.FITNESS_LOCATION_READ))
-                            .addConnectionCallbacks(
-                                    new GoogleApiClient.ConnectionCallbacks() {
-
-                                        @Override
-                                        public void onConnected(Bundle bundle) {
-                                            Log.i(TAG, "Connected!!!");
-                                            // Now you can make calls to the Fitness APIs.
-                                            // Put application specific code here.
-
-                                        }
-
-                                        @Override
-                                        public void onConnectionSuspended(int i) {
-                                            // If your connection to the sensor gets lost at some point,
-                                            // you'll be able to determine the reason and react to it here.
-                                            if (i == GoogleApiClient.ConnectionCallbacks.CAUSE_NETWORK_LOST) {
-                                                Log.i(TAG, "Connection lost.  Cause: Network Lost.");
-                                            } else if (i == GoogleApiClient.ConnectionCallbacks.CAUSE_SERVICE_DISCONNECTED) {
-                                                Log.i(TAG, "Connection lost.  Reason: Service Disconnected");
-                                            }
-                                        }
-                                    }
-                            )
-                            .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
-                            .addOnConnectionFailedListener(this)
-                            .build();
-
-                   // if (!mGoogleApiClient.isConnected() || !mGoogleApiClient.isConnecting()) {
-                     //   mGoogleApiClient.connect();
-                    //}
-                } else {
-                    Log.e(TAG, "Error occurred while attempting to access Google play.");
-                }
-
-                Log.d(TAG, "Stream " + TAG + " registered successfully");*/
 
                 EventBus.getDefault().post(new IncrementLoadingProcessCountEvent());
 
@@ -153,7 +111,7 @@ public class FitStreamGenerator extends AndroidStreamGenerator<FitDataRecord> im
                         try {
                             Log.d(TAG, "Stream " + TAG + "initialized from previous state");
                             Future<List<FitDataRecord>> listFuture =
-                                    mDAO.getLast(Constants.LOCATION_QUEUE_SIZE);
+                                    mDAO.getLast(Constants.FIT_QUEUE_SIZE);
                             while (!listFuture.isDone()) {
                                 Thread.sleep(1000);
                             }

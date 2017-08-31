@@ -236,6 +236,7 @@ public class Constants {
     public static final int SENSOR_QUEUE_SIZE= 150;
     public static final int IMAGE_QUEUE_SIZE = 20;
     public static final int MOOD_QUEUE_SIZE = 20;
+    public static final int FIT_QUEUE_SIZE = 150;
 
     public static final int MOOD_STREAM_GENERATOR_UPDATE_FREQUENCY_MINUTES = 15;
     public static final int IMAGE_STREAM_GENERATOR_UPDATE_FREQUENCY_MINUTES = 30;
