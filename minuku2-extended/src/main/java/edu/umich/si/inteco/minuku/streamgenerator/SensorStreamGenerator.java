@@ -96,7 +96,7 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
     private String filename = "DataCollection.txt";//write to firebase
     private Runnable textFileLogger;//?
     private String newLine = "\n";
-    static float[] reading = new float[3];
+    static float[] reading = new float[4];
     private android.os.Handler mHandler = new android.os.Handler();
 
     /*public void onCreate() {
@@ -142,11 +142,11 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
         textFileLogger = new Runnable() {
             @Override
             public void run() {
-                if(index<50000){
+                if(index<500000000){
                     writeToFile(reading);
                     index++;}
                 //Repeats the logging every 0.05 second
-                mHandler.postDelayed(this, 50);//why repeats?
+                //mHandler.postDelayed(this, 50);//why repeats?
             }
         };
         //Starts the logging after 10 second
@@ -267,6 +267,7 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
                reading[0]=event.values[0];
                reading[1]=event.values[1];
                reading[2]=event.values[2];
+               reading[3]=((float)index/20);
 		    updateStream();}
 		    
 }
