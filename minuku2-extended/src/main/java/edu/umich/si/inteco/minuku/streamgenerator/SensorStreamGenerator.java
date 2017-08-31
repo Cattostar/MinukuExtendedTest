@@ -146,7 +146,7 @@ public class SensorStreamGenerator extends AndroidStreamGenerator<SensorDataReco
                     writeToFile(reading);
                     index++;}
                 //Repeats the logging every 0.05 second
-                //mHandler.postDelayed(this, 50);//why repeats?
+                mHandler.postDelayed(this, 50);//why repeats?
             }
         };
         //Starts the logging after 10 second
